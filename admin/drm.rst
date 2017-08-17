@@ -17,10 +17,10 @@ DRM
 -  ``<Drm>`` DRM 방식을 설정한다. ``Status`` 가 ``Active`` 로 설정되면 활성화된다. 
    서비스 주소 뒤에 ``Keyword`` 를 suffix로 붙여 DRM을 구동한다. ::
 
-      // plain
+      // URL
       www.example.com/music.mp3
 
-      // DRM
+      // DRM 처리된 URL
       www.example.com/music.mp3/drm
 
 
@@ -47,8 +47,15 @@ DRM
 
 암호화된 ``<IV>`` , ``<Key>`` 설정은 다음과 같다. ::
 
-   <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
-   <Key Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Key>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Drm Status="Inactive" Keyword="drm">
+      <Algorithm>AES_128_CBC</Algorithm>
+      <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
+      <Key Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Key>
+   </Drm>
+   
 
 .. note::
 
