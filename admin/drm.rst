@@ -3,18 +3,55 @@
 DRM
 ******************
 
-On the fly로 컨텐츠를 암호화하여 전송한다.
+콘텐츠를 암호화하여 전송한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Drm Status="Inactive" Keyword="drm">
+      <Algorithm>AES_128_CBC</Algorithm>
+      <IV> ... </IV>
+      <Key> ... </Key>
+   </Drm>
+
+-  ``<Drm>`` DRM 방식을 설정한다. ``Status`` 가 ``Active`` 로 설정되면 활성화된다. 
+   서비스 주소 뒤에 ``Keyword`` 를 suffix로 붙여 DRM을 구동한다. ::
+
+      // plain
+      www.example.com/music.mp3
+
+      // DRM
+      www.example.com/music.mp3/drm
 
 
+-  ``<Algorithm> (기본: AES_128_CBC)`` 
+   암호화 알고리즘을 선택한다.
+   사용가능한 알고리즘은 다음과 같다.
 
-.. toctree::
-   :maxdepth: 2
+   ================== ============
+   <Algorithm>        Bits
+   ================== ============
+   AES_128_CBC        128
+   AES_256_CBC        256
+   RC4_128            128
+   ================== ============
 
+-  ``<IV>`` Initial Vector.
 
+-  ``<Key>`` 암호화 키
 
-.. _dash_:
+``<IV>`` 와 ``<Key>`` 를 평문(Plain Text)으로 제공하면 보안적으로 취약하다.
+이를 아래 API를 이용해 암호화한 뒤 설정할 것을 권장한다. ::
 
+   /command/encryptpassword?plain=abcdefghijklmnop
 
-DRM
-====================================
+암호화된 ``<IV>`` , ``<Key>`` 설정은 다음과 같다. ::
+
+   <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
+   <Key Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Key>
+
+.. note::
+
+   암호화 API는 인증서에 기반하여 동작한다. 
+   따라서 인증서가 다르면 암호화된 키가 공유되지 않는다.
 
