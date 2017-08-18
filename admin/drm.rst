@@ -3,7 +3,12 @@
 DRM
 ******************
 
-콘텐츠를 암호화하여 전송한다. ::
+콘텐츠를 암호화하여 전송한다. 
+
+.. figure:: img/drm1.png
+   :align: center
+
+::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
