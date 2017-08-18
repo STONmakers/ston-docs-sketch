@@ -16,7 +16,8 @@ DRM
    <Drm Status="Inactive" Keyword="drm">
       <Algorithm>AES_128_CBC</Algorithm>
       <IV> ... </IV>
-      <Key> ... </Key>
+      <Token> ... </Token>
+      <Key Hash="none">#Token</Token>
    </Drm>
 
 -  ``<Drm>`` DRM 방식을 설정한다. ``Status="Active"`` 로 설정되면 활성화된다. 
@@ -43,14 +44,47 @@ DRM
 
 -  ``<IV>`` Initial Vector.
 
--  ``<Key>`` 암호화 키
+-  ``<Token>`` 키 생성에 사용될 토큰
 
-``<IV>`` 와 ``<Key>`` 를 평문(Plain Text)으로 제공하면 보안적으로 취약하다.
+-  ``<Key> (기본: #Token)`` 변수를 조합하여 암/복호화에 사용될 키를 생성할 수 있다.
+   
+   ================== ==================================
+   변수                설명
+   ================== ==================================
+   #token             <Token> 의 값
+   #url               클라이언트가 요청한 URL
+   #filename1         확장자를 포함한 파일이름
+   #filename2         확장자를 제외한 파일이름
+   ================== ==================================
+
+   콤마(,)를 구분자로 사용하여 키를 생성한다. 
+   
+   URL이 /music/iu.mp3 이고 ``<Token>`` 을 ABC로 가정한다면 ``<Key>`` 표현에 따른 암/복호화 키를 다음과 같다.
+   
+   ========================= ==================================
+   <Key Hash="none">         암/복호화 키
+   ========================= ==================================
+   #token                    ABC
+   #url,#token               /music/iu.mp3ABC
+   #token,#filename1         ABCiu.mp3
+   #filename2,#token,#url    iuABC/music/iu.mp3
+   ========================= ==================================
+
+   ``Hash (기본: none)`` 속성이 ``none`` 이라면 위에 조합된 문자열을 암/복호화 키로 사용한다.
+
+   ``Hash`` 속성을 지정하면 아래와 같이 조합된 문자열을 해쉬한 값을 키로 사용한다. ::
+
+      Hash( <Key> ... </Key> )
+
+   ``Hash`` 속성은 ``none`` , ``MD5`` , ``SHA-1`` , ``SHA-256`` 를 지원한다.
+   
+    
+``<IV>`` 와 ``<Token>`` 를 평문(Plain Text)으로 제공하면 보안적으로 취약하다.
 이를 아래 API를 이용해 암호화한 뒤 설정할 것을 권장한다. ::
 
    /command/encryptpassword?plain=abcdefghijklmnop
 
-암호화된 ``<IV>`` , ``<Key>`` 설정을 위해 ``Type="enc"`` 속성을 추가한다. ::
+암호화된 ``<IV>`` , ``<Token>`` 설정을 위해 ``Type="enc"`` 속성을 추가한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
@@ -58,7 +92,8 @@ DRM
    <Drm Status="Active" Keyword="drm">
       <Algorithm>AES_128_CBC</Algorithm>
       <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
-      <Key Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Key>
+      <Token Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Token>
+      <Key>#Token</Key>
    </Drm>
 
 
