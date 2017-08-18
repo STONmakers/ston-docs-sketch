@@ -10,14 +10,14 @@ DRM
 
 ::
 
-   # server.xml - <Server><VHostDefault><Options>
-   # vhosts.xml - <Vhosts><Vhost><Options>
+   $ server.xml - <Server><VHostDefault><Options>
+   $ vhosts.xml - <Vhosts><Vhost><Options>
 
    <Drm Status="Inactive" Keyword="drm">
       <Algorithm>AES_128_CBC</Algorithm>
       <IV> ... </IV>
       <Token> ... </Token>
-      <Key Hash="none">#Token</Token>
+      <Key Hash="none">$Token</Token>
    </Drm>
 
 -  ``<Drm>`` DRM 방식을 설정한다. ``Status="Active"`` 로 설정되면 활성화된다. 
@@ -47,15 +47,15 @@ DRM
 
 -  ``<Token>`` 키 생성에 사용될 토큰
 
--  ``<Key> (기본: #Token)`` 변수를 조합하여 암/복호화에 사용될 키를 생성할 수 있다.
+-  ``<Key> (기본: $Token)`` 변수를 조합하여 암/복호화에 사용될 키를 생성할 수 있다.
    
    ================== ==================================
    변수                설명
    ================== ==================================
-   #token             <Token> 의 값
-   #url               클라이언트가 요청한 URL
-   #filename1         확장자를 포함한 파일이름
-   #filename2         확장자를 제외한 파일이름
+   $Token             <Token> 의 값
+   $url               클라이언트가 요청한 URL
+   $filename1         확장자를 포함한 파일이름
+   $filename2         확장자를 제외한 파일이름
    ================== ==================================
 
    콤마(,)를 구분자로 사용하여 키를 생성한다. 
@@ -65,10 +65,10 @@ DRM
    ========================= ==================================
    <Key Hash="none">         암/복호화 키
    ========================= ==================================
-   #token                    ABC
-   #url,#token               /music/iu.mp3ABC
-   #token,#filename1         ABCiu.mp3
-   #filename2,#token,#url    iuABC/music/iu.mp3
+   $Token                    ABC
+   $url,$Token               /music/iu.mp3ABC
+   $Token,$filename1         ABCiu.mp3
+   $filename2,$Token,$url    iuABC/music/iu.mp3
    ========================= ==================================
 
    ``Hash (기본: none)`` 속성이 ``none`` 이라면 위에 조합된 문자열을 암/복호화 키로 사용한다.
@@ -87,14 +87,14 @@ DRM
 
 암호화된 ``<IV>`` , ``<Token>`` 설정을 위해 ``Type="enc"`` 속성을 추가한다. ::
 
-   # server.xml - <Server><VHostDefault><Options>
-   # vhosts.xml - <Vhosts><Vhost><Options>
+   $ server.xml - <Server><VHostDefault><Options>
+   $ vhosts.xml - <Vhosts><Vhost><Options>
 
    <Drm Status="Active" Keyword="drm">
       <Algorithm>AES_128_CBC</Algorithm>
       <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
       <Token Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Token>
-      <Key>#Token</Key>
+      <Key>$Token</Key>
    </Drm>
 
 
