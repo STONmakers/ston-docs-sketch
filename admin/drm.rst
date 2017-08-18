@@ -14,7 +14,7 @@ DRM
       <Key> ... </Key>
    </Drm>
 
--  ``<Drm>`` DRM 방식을 설정한다. ``Status`` 가 ``Active`` 로 설정되면 활성화된다. 
+-  ``<Drm>`` DRM 방식을 설정한다. ``Status="Active"`` 로 설정되면 활성화된다. 
    서비스 주소 뒤에 ``Keyword`` 를 suffix로 붙여 DRM을 구동한다. ::
 
       // URL
@@ -45,20 +45,20 @@ DRM
 
    /command/encryptpassword?plain=abcdefghijklmnop
 
-암호화된 ``<IV>`` , ``<Key>`` 설정은 다음과 같다. ::
+암호화된 ``<IV>`` , ``<Key>`` 설정을 위해 ``Type="enc"`` 속성을 추가한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Drm Status="Inactive" Keyword="drm">
+   <Drm Status="Active" Keyword="drm">
       <Algorithm>AES_128_CBC</Algorithm>
       <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
       <Key Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Key>
    </Drm>
-   
+
 
 .. note::
 
    암호화 API는 인증서에 기반하여 동작한다. 
-   따라서 인증서가 다르면 암호화된 키가 공유되지 않는다.
+   따라서 인증서가 다르면 암/복호화 결과가 다르다.
 
