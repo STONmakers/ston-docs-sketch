@@ -14,7 +14,7 @@ DRM
    $ vhosts.xml - <Vhosts><Vhost><Options>
 
    <Drm Status="Inactive" Keyword="drm">
-      <Algorithm>AES_128_CBC</Algorithm>
+      <Algorithm>RC4</Algorithm>
       <IV> ... </IV>
       <Token> ... </Token>
       <Key Hash="none">$Token</Token>
@@ -37,8 +37,6 @@ DRM
    ================== ============
    <Algorithm>        Bits
    ================== ============
-   AES_128_CBC        128
-   AES_256_CBC        256
    RC4                40 ~ 2048
    ================== ============
 
