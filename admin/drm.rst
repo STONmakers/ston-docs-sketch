@@ -95,7 +95,7 @@ DRM
    $ vhosts.xml - <Vhosts><Vhost><Options>
 
    <Drm Status="Active" Keyword="drm">
-      <Algorithm>AES_128_CBC</Algorithm>
+      <Algorithm>RC4</Algorithm>
       <IV Type="enc">RokyekMd0IjDnRGKjVE7sQ==</IV>
       <Token Type="enc">x4KHA1b+AirBOIoaeEBHmg==</Token>
       <Key>$Token</Key>
