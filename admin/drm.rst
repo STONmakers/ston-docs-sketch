@@ -30,7 +30,7 @@ DRM
       www.example.com/music.mp3/drm
 
 
--  ``<Algorithm> (기본: AES_128_CBC)`` 
+-  ``<Algorithm> (기본: RC4)`` 
    암호화 알고리즘을 선택한다.
    사용가능한 알고리즘은 다음과 같다.
 
