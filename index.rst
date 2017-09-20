@@ -10,4 +10,4 @@ Spec
 .. toctree::
    :maxdepth: 2
 
-   admin/drm
+   admin/active_purge
