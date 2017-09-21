@@ -15,7 +15,7 @@ Sync는 Publish-Subscribe 모델을 통해 복수의 STON을 동일하게 관리
    :align: center
 
 이 모델은 관리자가 URL로 게시(Publish)하고, 각 서버들이 이를 수신(Subscribe)하여 반영하는 구조이다. 
-각각의 서버가 능동적으로 목록을 수신하기 때문에 서비스 규모가 커지면서 발생하는 관리의 어려움이 근본적으로 사라진다.
+각각의 서버가 능동적으로 목록을 수신하기 때문에 서비스 규모가 커지면서 발생하는 대상 지정의 어려움이 근본적으로 사라진다.
 
 .. note::
 
@@ -103,14 +103,14 @@ Content-Type이나 확장자는 별도로 체크하지 않는다.
 
    ... Body ...
 
-STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 ``If-Modified-Since`` 헤더를 이용해 내용이 변경되었을 때만 서버가 응답하길 기대한다. ::
+STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 ``If-Modified-Since`` 헤더를 이용해 내용이 변경되었을 때만 서버가 200 OK로 응답하길 기대한다. ::
 
    GET /purge.html HTTP/1.1
    Host: example.com
    If-Modified-Since: Mon, 24 Jul 2017 01:09:43 GMT
 
-변경이 있을 경우 앞선 응답처럼 200 OK로 응답하며 ``Last-Modified`` 시간이 갱신된다. 
-변경이 없는 경우 다음처럼 304 Not Modified 로 응답해야 한다. ::
+변경이 있을 경우 200 OK로 응답하며 ``Last-Modified`` 시간이 갱신된다. 
+변경이 없는 경우 다음처럼 304 Not Modified 로 응답해야 하여 변경없음을 알린다. ::
 
    HTTP/1.1 304 Not Modified
    Server: Apache/1.3.27
@@ -120,7 +120,7 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
 주의사항
 ====================================
 
-게시(Publish)서버는 Last-Modified 값을 통해 최적화된 변경목록을 게시할 수 있다.
+게시(Publish)서버는 ``Last-Modified`` 값을 통해 최적화된 변경목록을 게시할 수 있다.
 
 예를 들어 아래와 같이 변경되는 파일에 대한 이력을 별도로 저장소(i.e. Database)에 기록하고 이를 동적 페이지로 게시하는 경우를 가정해 보자.
 
@@ -144,7 +144,7 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
    example.com/b.jpg       // 01:09:43 기록
    example.com/c.jpg       // 01:09:43 기록
 
-이때 STON이 이 목록에 접근하면 다음과 같이 응답이 온다. ::
+이때 이 목록에 접근하면 게시서버는 다음과 응답한다. ::
 
    HTTP/1.1 200 OK
    Server: Apache/1.3.27
@@ -170,7 +170,7 @@ STON이 기억하는 ``Last-Modified`` 은 ``Mon, 24 Jul 2017 01:09:43 GMT`` 이
    example.com/e.jpg       // 01:09:43 기록
    example.com/f.jpg       // 01:09:44 기록
 
-STON이 다시 목록에 접근할 다음과 같이 If-Modified-Since헤더를 붙여서 요청한다. ::
+STON이 다시 목록에 접근할 다음과 같이 ``If-Modified-Since`` 헤더를 붙여서 요청한다. ::
 
    GET /purge.html HTTP/1.1
    If-Modified-Since: Mon, 24 Jul 2017 01:09:43 GMT
@@ -186,7 +186,7 @@ STON이 다시 목록에 접근할 다음과 같이 If-Modified-Since헤더를 �
 이상의 문제로 인해 초 단위의 현재시간은 목록에서 배제해야 한다.
 서버는 다음과 같이 변경항목을 추출해야 한다. ::
 
-   STON이 보낸 If-Modified-Since  <  변경항목  <  현재시간
+   If-Modified-Since  <  변경항목  <  현재시간
 
 이 경우 다음과 같이 동작하게 되어 누락/중복을 제거할 수 있다.
 
