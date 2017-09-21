@@ -11,7 +11,7 @@ API를 이용한 Purge는 직관적으로 간편하다는 장점이 있는 반�
 
 Sync는 Publish-Subscribe 모델을 통해 복수의 STON을 동일하게 관리할 수 있는 기법이다.
 
-.. figure:: img/pubsub_purge.png
+.. figure:: img/xxx.png
    :align: center
 
 이 모델은 관리자가 URL로 게시(Publish)하고, 각 서버들이 이를 수신(Subscribe)하여 반영하는 구조이다. 
@@ -117,7 +117,56 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
 
 
 
-프로그래밍 TIP
+변경항목 추출 TIP
 ====================================
 
-아래 그림과 같이 
+아래 그림과 같이 데이터베이스 중 변경되는 파일에 대한 이력을 별도로 저장소에 기록하고 이를 PHP등으로 게시할 경우 ``Last-Modified`` 시간관리에 주의해야 한다.
+
+.. figure:: img/xxx.png
+   :align: center
+
+다음과 같이 3개의 URL에 대해 변경이 1초 안에 발생했다고 예를 들어보자. ::
+
+   example.com/a.jpg       // 01:09:43 기록
+   example.com/b.jpg       // 01:09:43 기록
+   example.com/c.jpg       // 01:09:43 기록
+
+이때 STON이 이 목록에 접근하면 다음과 같이 응답이 온다. ::
+
+   HTTP/1.1 200 OK
+   Server: Apache/1.3.27
+   Content-Length: 153
+   Last-Modified: Mon, 24 Jul 2017 01:09:43 GMT
+
+   <STON>
+      <Body>
+         <Item>example.com/a.jpg</Item>
+         <Item>example.com/b.jpg</Item>
+         <Item>example.com/c.jpg</Item>
+      </Body>
+   <STON>
+
+STON이 기억하는 ``Last-Modified`` 은 ``Mon, 24 Jul 2017 01:09:43 GMT`` 이다.
+
+이 때 서버에서 아래와 같이 3개의 URL이 변경되었다면 문제상황이 발생할 수 있다. ::
+
+   example.com/a.jpg       // 01:09:43 기록
+   example.com/b.jpg       // 01:09:43 기록
+   example.com/c.jpg       // 01:09:43 기록
+   example.com/d.jpg       // 01:09:43 기록
+   example.com/e.jpg       // 01:09:43 기록
+   example.com/f.jpg       // 01:09:44 기록
+
+STON이 다시 목록에 접근할 경우 서버 쪽 로직은 아마도 다음 2가지 조건으로 저장소에서 변경목록을 꺼낼 가능성이 높다. ::
+
+   Mon, 24 Jul 2017 01:09:43 GMT  <  변경항목
+      -> example.com/f.jpg 만 대상이 된다. (d.jpg, e.jpg 누락)
+
+   Mon, 24 Jul 2017 01:09:43 GMT  <=  변경항목
+      -> 모두가 대상이 된다. (a~c.jpg 중복)
+
+이상의 문제로 인해 현재 시간은 목록에서 배제하는 것이 옳다.
+서버는 다음과 같이 변경항목을 추출해야 한다. ::
+
+   STON이 보낸 If-Modified-Since  <  변경항목  <  현재시간
+
