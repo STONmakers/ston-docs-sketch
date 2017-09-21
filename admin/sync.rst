@@ -170,3 +170,9 @@ STON이 다시 목록에 접근할 경우 서버 쪽 로직은 아마도 다음 
 
    STON이 보낸 If-Modified-Since  <  변경항목  <  현재시간
 
+이 경우 다음과 같이 동작하게 되어 누락/중복을 제거할 수 있다.
+
+.. figure:: img/xxx.png
+   :align: center
+
+
