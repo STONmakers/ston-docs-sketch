@@ -117,14 +117,27 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
 
 
 
-변경항목 추출 TIP
+주의사항
 ====================================
 
-아래 그림과 같이 데이터베이스 중 변경되는 파일에 대한 이력을 별도로 저장소에 기록하고 이를 PHP등으로 게시할 경우 ``Last-Modified`` 시간관리에 주의해야 한다.
+게시(Publish)서버는 Last-Modified 값을 통해 최적화된 변경목록을 게시할 수 있다.
+
+예를 들어 아래와 같이 변경되는 파일에 대한 이력을 별도로 저장소(i.e. Database)에 기록하고 이를 동적 페이지로 게시하는 경우를 가정해 보자.
 
 .. figure:: img/xxx.png
    :align: center
 
+먼저 동적 페이지에서는 다음과 같이 ``Last-Modified`` 헤더를 명시적으로 설정해 주어야 한다. ::
+
+   <?php
+     header("Last-Modified: Mon, 24 Jul 2017 01:09:43 GMT");
+   ?>
+
+   <STON>
+   ...
+   </STON>
+   
+이 때 ``Last-Modified`` 설정과 관련하여 현재 시간 1초동안 미묘한 시점이 발생한다.
 다음과 같이 3개의 URL에 대해 변경이 1초 안에 발생했다고 예를 들어보자. ::
 
    example.com/a.jpg       // 01:09:43 기록
@@ -148,7 +161,7 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
 
 STON이 기억하는 ``Last-Modified`` 은 ``Mon, 24 Jul 2017 01:09:43 GMT`` 이다.
 
-이 때 서버에서 아래와 같이 3개의 URL이 변경되었다면 문제상황이 발생할 수 있다. ::
+이 때 서버에서 아래와 같이 3개의 URL(d.jpg ~ f.jpg)이 변경되었다. ::
 
    example.com/a.jpg       // 01:09:43 기록
    example.com/b.jpg       // 01:09:43 기록
@@ -157,7 +170,12 @@ STON이 기억하는 ``Last-Modified`` 은 ``Mon, 24 Jul 2017 01:09:43 GMT`` 이
    example.com/e.jpg       // 01:09:43 기록
    example.com/f.jpg       // 01:09:44 기록
 
-STON이 다시 목록에 접근할 경우 서버 쪽 로직은 아마도 다음 2가지 조건으로 저장소에서 변경목록을 꺼낼 가능성이 높다. ::
+STON이 다시 목록에 접근할 다음과 같이 If-Modified-Since헤더를 붙여서 요청한다. ::
+
+   GET /purge.html HTTP/1.1
+   If-Modified-Since: Mon, 24 Jul 2017 01:09:43 GMT
+
+이 경우 동적 페이지에서 아마도 다음 2가지 조건으로 저장소로부터 변경목록을 수집할 가능성이 높다. ::
 
    Mon, 24 Jul 2017 01:09:43 GMT  <  변경항목
       -> example.com/f.jpg 만 대상이 된다. (d.jpg, e.jpg 누락)
@@ -165,7 +183,7 @@ STON이 다시 목록에 접근할 경우 서버 쪽 로직은 아마도 다음 
    Mon, 24 Jul 2017 01:09:43 GMT  <=  변경항목
       -> 모두가 대상이 된다. (a~c.jpg 중복)
 
-이상의 문제로 인해 현재 시간은 목록에서 배제하는 것이 옳다.
+이상의 문제로 인해 초 단위의 현재시간은 목록에서 배제해야 한다.
 서버는 다음과 같이 변경항목을 추출해야 한다. ::
 
    STON이 보낸 If-Modified-Since  <  변경항목  <  현재시간
@@ -174,5 +192,4 @@ STON이 다시 목록에 접근할 경우 서버 쪽 로직은 아마도 다음 
 
 .. figure:: img/xxx.png
    :align: center
-
 
