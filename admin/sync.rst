@@ -8,6 +8,8 @@ Sync는 Publish-Subscribe 모델을 통해 복수의 STON을 동일하게 관리
 .. figure:: img/pubsub_purge.png
    :align: center
 
+이 모델은 관리자가 URL로 게시(Publish)하고, 각 서버들이 이를 수신(Subscribe)하여 반영하는 구조이다. 
+각각의 서버가 능동적으로 목록을 수신하기 때문에 서버 대수가 늘어나면서 발생하는 관리의 어려움이 근본적으로 사라진다.
 
 .. note::
 
@@ -20,37 +22,32 @@ API를 이용한 Purge는 직관적으로 간편하다는 장점이 있는 반�
 - 클라우드 Auto-Scale 등으로 인해 서버 인스턴스가 지속적으로 변동되면 대상 서버 리스트를 만들기 어렵다.
 - 점검등의 이유로 일시적으로 서버가 배제되고 재투입된 경우 해당 시간동안의 Purge가 반영되기 힘들다.
 
-
-이 모델은 관리자가 약속된 URL로 Purge 목록을 게시(Publish)하고, 각 서버들이 이를 수신(Subscribe)하여 반영하는 구조이다. 
-각각의 서버가 능동적으로 목록을 수신하기 때문에 서버 대수가 늘어나면서 발생하는 관리의 어려움이 근본적으로 사라진다.
-이 기능은 다음과 같은 목적을 가진다.
-
-- 대형 서비스의 고속 컨텐츠 동기화
-- 서비스 전 컨텐츠를 미리 캐싱해 두는 기능 (Pre-warming)
-- TTL 수동관리 (TTL을 아주 길게 설정하고 바뀌는 콘텐츠 목록만 게시한다.)
-
 ::
 
-   $ server.xml - <Server><Cache>
+   $ server.xml - <Server>
+   
+   <Sync>
+      <Purge Timeout="5" Cycle="3">http://1.1.1.1/ston_purge_list.html</Purge>
+   </Sync>
 
-   <ActivePurge Timeout="5" Cycle="3">http://1.1.1.1/purgelist.html</ActivePurge>
+-  ``<Purge>`` 
 
--  ``<ActivePurge>`` 
-
-   관리자가 Publish할 주소를 게시한다. 
+   관리자가 Purge할 대상으로 URL로 게시한다.
 
    -  ``Timeout (기본: 5초)`` 소켓연결부터 HTTP Transaction이 완료될 때까지 유효시간
 
-   -  ``Cycle (기본: 3초)`` 실행주기
+   -  ``Cycle (기본: 3초)`` 게시 URL 접근주기
 
-STON은 설정된 URL을 ``Cycle`` 마다 갱신하여 반영한다. 
+설정된 URL을 ``Cycle`` 마다 반복하여 접근한다.
 다음은 예제 XML이다. ::
 
-   <StonFileUpdateList>
-      <Policy Method="Purge">
-      <List>
+   <STON>
+      <Meta>
+         <Method>Purge</Method>
+      </Meta>
+      <Body>
          <Url>example.com/logo.jpg</Url>
          <Url>example.com/logo.jpg</Url>
-      </List>
-   </StonFileUpdateList>
+      </Body>
+   <STON>
 
