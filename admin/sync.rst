@@ -1,18 +1,25 @@
-﻿.. _active_purge:
+﻿.. _sync:
 
-Active Purge
+Sync
 ******************
 
-Caching무효화를 위한 `Purge <http://ston.readthedocs.io/ko/latest/admin/caching_purge.html#purge>`_ API 호출방식은 간편하며 직관적인 장점인 반면 다음과 같은 단점도 존재한다.
-
-- 대상 서버가 많아져 일일이 API를 호출하기 어려운 경우
-- 클라우드 Auto-Scale 등으로 인해 서버 인스턴스가 지속적으로 변동되는 경우
-- 점검등의 이유로 일시적으로 서버가 배제되었다 재투입된 경우 (배제된 시간동안은 API를 호출받지 못할 수 있다)
-
-이런 경우 Publish-Subscribe 모델을 통해 문제를 간단히 만들 수 있다. 
+Sync는 Publish-Subscribe 모델을 통해 복수의 STON을 동일하게 관리할 수 있는 기법이다.
 
 .. figure:: img/pubsub_purge.png
    :align: center
+
+
+.. note::
+
+   Sync는 목적에 의해 설정 동기화, 캐싱 동기화(Pre-Caching), Purge 동기화로 분류할 수 있다. 
+   본 Prototype에서는 Purge 동기화만을 스케치한다.
+
+API를 이용한 Purge는 직관적으로 간편하다는 장점이 있는 반면 다음과 같은 단점도 존재한다.
+
+- 대상 서버가 많아지면 일일이 API를 호출하기 번거롭다.
+- 클라우드 Auto-Scale 등으로 인해 서버 인스턴스가 지속적으로 변동되면 대상 서버 리스트를 만들기 어렵다.
+- 점검등의 이유로 일시적으로 서버가 배제되고 재투입된 경우 해당 시간동안의 Purge가 반영되기 힘들다.
+
 
 이 모델은 관리자가 약속된 URL로 Purge 목록을 게시(Publish)하고, 각 서버들이 이를 수신(Subscribe)하여 반영하는 구조이다. 
 각각의 서버가 능동적으로 목록을 수신하기 때문에 서버 대수가 늘어나면서 발생하는 관리의 어려움이 근본적으로 사라진다.

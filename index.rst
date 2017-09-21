@@ -10,4 +10,4 @@ Spec
 .. toctree::
    :maxdepth: 2
 
-   admin/active_purge
+   admin/sync
