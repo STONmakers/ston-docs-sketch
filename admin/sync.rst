@@ -11,7 +11,7 @@ API를 이용한 Purge는 직관적으로 간편하다는 장점이 있는 반�
 
 Sync는 Publish-Subscribe 모델을 통해 복수의 STON을 동일하게 관리할 수 있는 기법이다.
 
-.. figure:: img/xxx.png
+.. figure:: img/sync1.png
    :align: center
 
 이 모델은 관리자가 URL로 게시(Publish)하고, 각 서버들이 이를 수신(Subscribe)하여 반영하는 구조이다. 
@@ -86,7 +86,7 @@ Content-Type이나 확장자는 별도로 체크하지 않는다.
 서버에서 변경목록을 매번 가져와 반영할 경우 지나친 중복 처리가 발생할 수 있다. 
 ``Last-Modified`` 헤더를 통해 이 문제를 해결한다.
 
-.. figure:: img/xxx.png
+.. figure:: img/sync2.png
    :align: center
 
 게시 URL이 example.com/purge.html 라면 STON이 보내는 최초 요청은 다음과 같다. ::
@@ -124,7 +124,7 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
 
 예를 들어 아래와 같이 변경되는 파일에 대한 이력을 별도로 저장소(i.e. Database)에 기록하고 이를 동적 페이지로 게시하는 경우를 가정해 보자.
 
-.. figure:: img/xxx.png
+.. figure:: img/sync3.png
    :align: center
 
 먼저 동적 페이지에서는 다음과 같이 ``Last-Modified`` 헤더를 명시적으로 설정해 주어야 한다. ::
@@ -183,15 +183,9 @@ STON이 다시 목록에 접근할 다음과 같이 ``If-Modified-Since`` 헤더
    Mon, 24 Jul 2017 01:09:43 GMT  <=  변경항목
       -> 모두가 대상이 된다. (a~c.jpg 중복)
 
-이상의 문제로 인해 초 단위의 현재시간은 목록에서 배제해야 한다.
-서버는 다음과 같이 변경항목을 추출해야 한다. ::
+이상의 문제로 인해 초 단위의 현재시간은 목록에서 배제해야 한다. ::
 
    If-Modified-Since  <  변경항목  <  현재시간
-
-이 경우 다음과 같이 동작하게 되어 누락/중복을 제거할 수 있다.
-
-.. figure:: img/xxx.png
-   :align: center
 
 
 
