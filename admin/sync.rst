@@ -60,22 +60,21 @@ Purge 목록 게시 서버가 제공해야 하는 파일은 아래와 같이 XML
          <Method>Purge</Method>
       </Meta>
       <Body>
-         <Item>example.com/logo.jpg</Item>
-         <Item>example.com/script/myscript.js</Item>
-         <Item>foo.com/*.js</Item>
-         <Item>foo.com/dummy/</Item>
-         <Item>http://bar.com/private.html?id=*</Item>
+         <Item><![CDATA[example.com/logo.jpg]]</Item>
+         <Item><![CDATA[example.com/script/myscript.js]]</Item>
+         <Item><![CDATA[foo.com/*.js]]</Item>
+         <Item><![CDATA[foo.com/dummy/]]</Item>
+         <Item><![CDATA[http://bar.com/private.html?id=*]]</Item>
       </Body>
    <STON>
 
 -  ``<Method> (기본: Purge)`` 수행할 무효화 명령을 선택한다.
    ``Purge`` , ``HardPurge`` , ``Expire`` 중 선택한다.
 
--  ``<Item>`` 무효화할 대상을 지정한다. 
+-  ``<Item>`` 무효화할 대상을 지정하며 특수문자를 감안하여 CDATA로 표현한다.
    명시적인 주소(URL), 패턴, 디렉토리 표현이 가능하다. 
    가상호스트 이름이 포함되어야 하며 프로토콜(http://)은 생략 가능하다. 
 
-XML 생성시 ``<Item>`` 에 XML escape character( ``& M < " '`` )가 포함되어 있다면 예약어( ``&amp; &lt; &gt; &quot; &apos;`` )로 치환하거나 CDATA로 표현해야 한다.
 Content-Type이나 확장자는 별도로 체크하지 않는다.
 
 
@@ -152,9 +151,9 @@ STON은 마지막 ``Last-Modified`` 헤더 값을 기억하며 다음과 같이 
 
    <STON>
       <Body>
-         <Item>example.com/a.jpg</Item>
-         <Item>example.com/b.jpg</Item>
-         <Item>example.com/c.jpg</Item>
+         <Item>![CDATA[example.com/a.jpg]]</Item>
+         <Item>![CDATA[example.com/b.jpg]]</Item>
+         <Item>![CDATA[example.com/c.jpg]]</Item>
       </Body>
    <STON>
 
