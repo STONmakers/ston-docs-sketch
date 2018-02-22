@@ -11,3 +11,4 @@ Spec
    :maxdepth: 2
 
    admin/sync
+   admin/dims_annotation
