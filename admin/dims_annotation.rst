@@ -61,6 +61,7 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    // 메인 텍스트 + 서브 텍스트 + 워터마크
    http:// ... /dims/maintext*subtext*watermark
 
+위 예제에서 쓰여지는 텍스트는 각 ``<Annotation>`` 의 값이다. 
 
 
 
@@ -73,12 +74,23 @@ Name              (없음)                     ``<Annotation>`` 이름
 Font              none (System Font)        폰트를 지정한다. (ttf, otf, woff 지원)   
 Size              10                        텍스트 크기
 Color             black                     텍스트 색상
-BackgroundWidth   (텍스트 크기에 맞춤)        텍스트 배경 넓이 
-BackgroundHeight  (텍스트 크기에 맞춤)        텍스트 배경 높이
-BackgroundColor   none (투명)                텍스트 배경 색상
+BackgroundColor   none (투명)                배경 색상
+BackgroundWidth   (텍스트 크기에 맞춤)        배경 폭 
+BackgroundHeight  (텍스트 크기에 맞춤)        배경 높이
 Gravity           c                         텍스트 위치 기준
 Geometry          +0+0                      Gravity로부터 거리
 Dissolve          50                         텍스트 투명도
 ================= ======================== ====================================================
 
+- ``Color`` 와 ``BackgroundColor`` 는 다음과 같이 표현한다. ::
 
+      // 키워드
+      black, red, orange ...
+
+      // RGB
+      ??
+
+
+- ``BackgroundWidth`` 와 ``BackgroundHeight`` 값이 0이면 텍스트에 맞추어진다. ``Origin`` 을 지정할 경우 대상 이미지의 폭과 넓이를 사용한다.
+
+- ``Gravity`` , ``Geometry`` , ``Dissolve`` 는 <합성>과 동일하다.
