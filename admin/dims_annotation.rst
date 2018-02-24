@@ -73,7 +73,7 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    // 메인 텍스트 + 서브 텍스트 + 워터마크
    http:// ... /dims/maintext*subtext*watermark
 
-기본 텍스트는 ``<Annotation>`` 의 값이지만 약속된 QueryString을 통해 텍스트를 입력받을 수 있다.
+기본 텍스트는 ``<Annotation>`` 의 값이며, 약속된 QueryString을 통해 텍스트를 입력받을 수 있다.
 
 
 
