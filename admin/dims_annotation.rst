@@ -11,7 +11,7 @@ DIMS
       /annotation/maintext/resize/100x100/annotation/subtext
       
 
-   
+
    Q> ``<Text>`` 가 ``<Annotation>`` 하위에 위치하는 원칙이 궁금합니다. ::
 
       펜을 손에 드는 순간 <위치>와 <내용>를 제외한 모든 것이 결정된다고 생각합니다.
@@ -37,7 +37,7 @@ Annotation
 ====================================
 
 Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
-사전에 제작된 글자 이미지를 "합성" 하는 것이 아니라, 다양한 펜(글꼴, 크기, 색상, 위치 등)을 이용해 이미지에 텍스트를 타이핑 한다. ::
+사전에 제작된 텍스트 이미지를 "합성" 하는 것이 아니라, 다양한 펜(글꼴, 크기, 색상, 위치 등)을 이용해 이미지에 텍스트를 타이핑 한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
