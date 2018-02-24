@@ -24,6 +24,12 @@ DIMS
       이 과정에서 <Text> 가 <Annotation> 으로 통합 되었습니다.
 
 
+    Q> 폰트 예제가 더 필요합니다. ::
+
+       사용할 수 있는 폰트 예제와 색을 디테일하게 지정하는 예제가 더 필요해 보입니다.
+       
+
+
 
 Annotation
 ====================================
@@ -63,11 +69,11 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
 ================= ============== ====================================================
 속성              기본 값         설명
 ================= ============== ====================================================
-Name              -              ``<Annotation>`` 이름
-Font
-Size
-Color
-BackgroundWidth
+Name              (없음)           ``<Annotation>`` 이름
+Font              none            폰트를 지정한다. (ttf, otf, woff 지원)   
+Size              10              텍스트 크기
+Color             black           텍스트 색상
+BackgroundWidth   
 BackgroundHeight
 BackgroundColor
 Gravity
