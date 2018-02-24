@@ -3,28 +3,45 @@
 DIMS
 ******************
 
-
 Annotation
 ====================================
 
-Purge목록을 수신(Subscribe)할 수 있는 URL을 설정한다.
+Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
+사전에 제작된 글자 이미지를 "합성" 하는 것이 아니라, 다양한 펜(글꼴, 크기, 색상, 위치 등)을 이용해 이미지에 동적으로 텍스트를 타이핑 할 수 있다. ::
 
-::
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
 
-   $ server.xml - <Server>
+   <Dims Status="Active" Keyword="dims">
+      <Annotation Name="maintext"> ... </Annotation>
+      <Annotation Name="subtext"> ... </Annotation> 
+      <Annotation Name="watermark"> ... </Annotation>
+   </Dims>
+
+각각의 ``<Annotation>`` 은 고유한 ``Name`` 으로 명명된다. 
+여러 ``<Annotation>`` 을 미리 등록하고 다음과 같이 ``*`` 를 구분자로 조합하여 사용한다. ::
+
+   // 메인 텍스트
+   http:// ...(생략)... /dims/maintext
+
+   // 메인 텍스트 + 서브 텍스트
+   http:// ...(생략)... /dims/maintext*subtext
+
+   // 서브 텍스트 + 워터마크
+   http:// ...(생략)... /dims/subtext*watermark
+
+   // 메인 텍스트 + 서브 텍스트 + 워터마크
+   http:// ...(생략)... /dims/maintext*subtext*watermark
+
+
    
-   <Sync>
-      <Purge Status="Inactive" Timeout="5" Cycle="3">http://example.com/purge.html</Purge>
-   </Sync>
+텍스트 전달
+-----------------------
 
--  ``<Purge>``
-
-   Purge목록의 게시 URL을 설정한다. ``Status="Active"`` 일 때 활성화된다.
-
-   -  ``Timeout (기본: 5초)`` 소켓연결부터 HTTP Transaction이 완료될 때까지 유효시간
-
-   -  ``Cycle (기본: 3초)`` 게시 URL 접근주기
-
-설정된 서버는 게시 URL을 ``Cycle`` 초 마다 Polling한다.
+aaaa
 
 
+속성
+-----------------------
+
+bbbbb
