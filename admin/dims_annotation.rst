@@ -10,6 +10,7 @@ DIMS
       /annotation/maintext*subtext/resize/100x100
       /annotation/maintext/resize/100x100/annotation/subtext
       
+
    
    Q> ``<Text>`` 가 ``<Annotation>`` 하위에 위치하는 원칙이 궁금합니다. ::
 
@@ -22,6 +23,7 @@ DIMS
       그 외 (기술적으로 중요하지만 고객에겐 머리아픈) 설정은 단순 Key-Value 형태로 치부하였습니다.
       
       이 과정에서 <Text> 가 <Annotation> 으로 통합 되었습니다.
+
 
 
     Q> 폰트 예제가 더 필요합니다. ::
