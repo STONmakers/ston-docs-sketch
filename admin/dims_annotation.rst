@@ -11,7 +11,6 @@ DIMS
       /annotation/maintext/resize/100x100/annotation/subtext
       
 
-
    Q> ``<Text>`` 가 ``<Annotation>`` 하위에 위치하는 원칙이 궁금합니다. ::
 
       펜을 손에 드는 순간 <위치>와 <내용>를 제외한 모든 것이 결정된다고 생각합니다.
@@ -25,11 +24,22 @@ DIMS
       이 과정에서 <Text> 가 <Annotation> 으로 통합 되었습니다.
       
 
-
    Q> 폰트 예제가 더 필요합니다. ::
 
        사용할 수 있는 폰트 예제와 색을 디테일하게 지정하는 예제가 더 필요해 보입니다.
-       
+       참고할만한 링크가 있다면 더 좋을 것 같습니다.
+      
+
+   Q> 멀티라인 지원은 이번 버전에 포함되나요? ::
+
+       우선 문서에는 주석으로 넣긴 했지만 Align기능이 필요해 보입니다.
+      
+
+   Q> 한글깨짐에 관하여  ::
+
+       IE의 이슈라기 보다는 한글은 클라이언트 호환성이 확보되지 않으므로 서버 사이드에서 인코딩해서 노출하라는 식의 가이드가 어떨까요?
+       권장 가이드가 있으면 좋을 것 같습니다.
+
 
 
 
@@ -63,8 +73,26 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    // 메인 텍스트 + 서브 텍스트 + 워터마크
    http:// ... /dims/maintext*subtext*watermark
 
-``Name`` 이 명시되면 쓰여지는 기본 텍스트는 ``<Annotation>`` 의 값이다. 
-하지만 다음곽 같이 동적으로 파라미터를 전달할 수 있다. 
+기본 텍스트는 ``<Annotation>`` 의 값이지만 약속된 QueryString을 통해 텍스트를 입력받을 수 있다.
+
+
+
+● Text
+        - 실제 이미지에 표시될 Text를 지정한다.
+        - 값이 반드시 있어야 한다.
+        - Value에 예약어 형태로 key 값을 지정한다. ($QUERYSTRING[], 없는 경우 Plain Text)
+
+    ex)
+        <Dims>
+            <Annotation Name="...">
+                <Text>TEST$QUERYSTRING[textValue]$REQ[host]</Text>
+            </Annotation>
+        </Dims>
+
+
+.. note::
+
+   텍스트 줄 바꿈은 ``\n`` 을 이용해 할 수 있다.
 
 
 
