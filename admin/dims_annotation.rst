@@ -86,11 +86,15 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    # server.xml - <Server><VHostDefault><Options><Dims>
    # vhosts.xml - <Vhosts><Vhost><Options><Dims>
 
+   <Annotation Name="statictext">STON Edge Server</Annotation>
    <Annotation Name="maintext">$QUERYSTRING[msg]</Annotation>
    <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
    <Annotation Name="watermark">powered by $REQ[host]</Annotation>
 
-다음과 같이 텍스트를 동적으로 전달할 수 있다. ::
+다음과 같이 텍스트를 전달한다. ::
+
+   // "STON Edge Server" 를 statictext로 삽입
+   http:// .../dims/annotation/statictext
 
    // msg(="HelloWorld") 를 maintext로 삽입
    http:// ...?msg=HelloWorld/dims/annotation/maintext
