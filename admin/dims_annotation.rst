@@ -37,8 +37,9 @@ DIMS
 
    Q> 텍스트 파라미터 전달 규격이 모호합니다. ::
 
-       $QUERYSTRING과 $REQ만 삽입이 가능한가요?
+       $QUERYSTRING과 $REQ이외 삽입규칙은 없나요?
        URL과 응답헤더 지원여부가 궁금합니다.
+       문자로 "$QUERYSTRING" 을 입력하고 싶을 경우 어떻게 해야 하나요? (Escape Character 규격)
 
 
    Q> 한글깨짐에 관하여  ::
@@ -89,13 +90,16 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
    <Annotation Name="watermark">powered by $REQ[host]</Annotation>
 
-다음은 텍스트 전달 예제이다. ::
+다음과 같이 텍스트를 동적으로 전달할 수 있다. ::
 
    // msg(="HelloWorld") 를 maintext로 삽입
    http:// ...?msg=HelloWorld/dims/annotation/maintext
 
    // msg(="HelloWorld") 를 maintext로, tag(="Event")를 subtext로 삽입
    http:// ...?msg=HelloWorld&tag=Event/dims/annotation/maintext*subtext
+
+   // tag(="Event")를 subtext로 삽입 (maintext 누락)
+   http:// ...?msg=HelloWorld&tag=Event/dims/annotation/subtext
 
 
 .. note::
