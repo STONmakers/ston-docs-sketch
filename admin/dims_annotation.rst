@@ -33,7 +33,13 @@ DIMS
    Q> 멀티라인 지원은 이번 버전에 포함되나요? ::
 
        우선 문서에는 주석으로 넣긴 했지만 Align기능이 필요해 보입니다.
-      
+
+
+   Q> 텍스트 파라미터 전달 규격이 모호합니다. ::
+
+       $QUERYSTRING과 $REQ만 삽입이 가능한가요?
+       URL과 응답헤더 지원여부가 궁금합니다.
+
 
    Q> 한글깨짐에 관하여  ::
 
@@ -62,38 +68,39 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
 여러 ``<Annotation>`` 을 미리 등록하고 다음과 같이 ``*`` 를 구분자로 조합하여 사용한다. ::
 
    // 메인 텍스트
-   http:// ... /dims/maintext
+   http:// ... /dims/annotation/maintext
 
    // 메인 텍스트 + 서브 텍스트
-   http:// ... /dims/maintext*subtext
+   http:// ... /dims/annotation/maintext*subtext
 
    // 서브 텍스트 + 워터마크
-   http:// ... /dims/subtext*watermark
+   http:// ... /dims/annotation/subtext*watermark
 
    // 메인 텍스트 + 서브 텍스트 + 워터마크
-   http:// ... /dims/maintext*subtext*watermark
-
-기본 텍스트는 ``<Annotation>`` 의 값이며, 약속된 QueryString을 통해 텍스트를 입력받을 수 있다.
+   http:// ... /dims/annotation/maintext*subtext*watermark
 
 
+기본 텍스트는 ``<Annotation>`` 의 값이며, 약속된 QueryString 또는 요청 헤더를 통해 텍스트를 입력받을 수 있다. ::
 
-● Text
-        - 실제 이미지에 표시될 Text를 지정한다.
-        - 값이 반드시 있어야 한다.
-        - Value에 예약어 형태로 key 값을 지정한다. ($QUERYSTRING[], 없는 경우 Plain Text)
+   # server.xml - <Server><VHostDefault><Options><Dims>
+   # vhosts.xml - <Vhosts><Vhost><Options><Dims>
 
-    ex)
-        <Dims>
-            <Annotation Name="...">
-                <Text>TEST$QUERYSTRING[textValue]$REQ[host]</Text>
-            </Annotation>
-        </Dims>
+   <Annotation Name="maintext">$QUERYSTRING[msg]</Annotation>
+   <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
+   <Annotation Name="watermark">powered by $REQ[host]</Annotation>
+
+다음은 텍스트 전달 예제이다. ::
+
+   // msg(="HelloWorld") 를 maintext로 삽입
+   http:// ...?msg=HelloWorld/dims/annotation/maintext
+
+   // msg(="HelloWorld") 를 maintext로, tag(="Event")를 subtext로 삽입
+   http:// ...?msg=HelloWorld&tag=Event/dims/annotation/maintext*subtext
 
 
 .. note::
 
    텍스트 줄 바꿈은 ``\n`` 을 이용해 할 수 있다.
-
 
 
 ``<Annotation>`` 은 다양한 속성을 지원한다.
