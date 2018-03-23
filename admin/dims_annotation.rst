@@ -60,14 +60,14 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    http:// ...?msg=HelloWorld&tag=Event/dims/annotation/subtext
 
 
-멀티라인을 입력하려면 라인피드(line feed) 문자인 ``\n`` 을 이용해 할 수 있다. ::
+멀티라인을 입력하려면 라인피드(line feed) 문자인 ``\n`` 을 입력한다. ::
 
    http:// ...?msg=1st\n2nd/dims/annotation/maintext
 
 
 .. note::
 
-   공백 등 표준 URL escape 문자는 브라우저가 적절히 인코딩하지만 한글의 경우 브라우저마다 처리 방식이 다를 수 있다. 
+   공백 등 표준 URL escape 문자는 브라우저가 적절히 인코딩하지만 한글의 경우 브라우저마다 처리 방식이 달라 깨질 수 있다. 
    따라서 한글을 입력할 경우 서버에서 한글 인코딩된 결과를 제공해야 한다.  
 
 
@@ -94,3 +94,15 @@ Dissolve          50                         텍스트 투명도
 - ``BackgroundWidth`` 와 ``BackgroundHeight`` 값이 0이면 텍스트에 맞추어진다. ``Origin`` 을 지정할 경우 대상 이미지의 폭과 넓이를 사용한다.
 
 - ``Gravity`` , ``Geometry`` , ``Dissolve`` 는 <합성>과 동일하다.
+
+
+상업적으로 재배포가 가능한 폰트만을 기본폰트로 제공한다.
+
+================= ======================================
+Font              License
+================= ======================================
+Roboto            Apache License, Version 2.0
+Nanum Gothic      Open Font License
+Open Sans         Apache License, Version 2.0
+================= ======================================
+
