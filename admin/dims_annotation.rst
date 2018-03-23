@@ -8,6 +8,10 @@ Annotation
 ====================================
 
 Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
+
+.. figure:: img/dims_annotation.png
+   :align: center
+
 사전에 제작된 텍스트 이미지를 "합성" 하는 것이 아니라, 다양한 펜(폰트, 색상, 위치 등)을 이용해 이미지에 텍스트를 타이핑 한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
@@ -89,7 +93,7 @@ Geometry          +0+0                      Gravity로부터 거리
 Dissolve          50                         텍스트 투명도
 ================= ======================== ====================================================
 
-- ``FontColor`` 와 ``BackgroundColor`` 는 RGB의 16진수 표현(#FF0000)을 지원한다. 
+- ``FontColor`` 와 ``BackgroundColor`` 는 RGB의 16진수 표현(#FF0000)으로 설정한다. 
 
 - ``BackgroundWidth`` 와 ``BackgroundHeight`` 값이 0이면 텍스트에 맞추어진다. ``Origin`` 을 지정할 경우 대상 이미지의 폭과 넓이를 사용한다.
 
@@ -109,4 +113,8 @@ Open Sans         Apache License, Version 2.0
 폰트를 다음 경로에 복사하여 추가가 가능하다. ::
 
    /usr/local/ston/Fonts
+
+.. note::
+
+   보안적인 이유로 Web Management를 통한 업로드는 지원하지 않는다.
 
