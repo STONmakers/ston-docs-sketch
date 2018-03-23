@@ -39,7 +39,7 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    http:// ... /dims/annotation/maintext*subtext*watermark
 
 
-기본 텍스트는 ``<Annotation>`` 의 값이며, 약속된 QueryString 또는 요청 헤더를 통해 텍스트를 입력받을 수 있다. ::
+기본 텍스트는 ``<Annotation>`` 의 값이며, 약속된 QueryString 을 통해 텍스트를 입력받을 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options><Dims>
    # vhosts.xml - <Vhosts><Vhost><Options><Dims>
@@ -47,7 +47,6 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    <Annotation Name="statictext">STON Edge Server</Annotation>
    <Annotation Name="maintext">$QUERYSTRING[msg]</Annotation>
    <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
-   <Annotation Name="watermark">powered by $REQ[host]</Annotation>
 
 다음과 같이 텍스트를 전달한다. ::
 
@@ -84,7 +83,7 @@ Name              (없음)                     ``<Annotation>`` 이름
 Font              none (System Font)        폰트를 지정한다. (ttf, otf, woff 지원)   
 FontSize          10                        텍스트 크기
 FontColor         #000000                   텍스트 색상
-TextAlign         center                    텍스트 정렬 ( ``left`` , ``center`` , ``right``
+TextAlign         center                    텍스트 정렬 ( ``left`` , ``center`` , ``right`` )
 BackgroundColor   none (투명)                배경 색상
 BackgroundWidth   (텍스트 크기에 맞춤)        배경 폭 
 BackgroundHeight  (텍스트 크기에 맞춤)        배경 높이
