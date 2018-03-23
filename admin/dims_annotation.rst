@@ -108,5 +108,5 @@ Open Sans         Apache License, Version 2.0
 
 폰트를 다음 경로에 복사하여 추가가 가능하다. ::
 
-   /usr/local/ston/FontSize
+   /usr/local/ston/Fonts
 
