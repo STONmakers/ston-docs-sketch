@@ -208,7 +208,7 @@ Meta
 - ``/graph/vhost/origin_http_session_day.png``
 - ``/graph/vhost/origin_http_session_week.png``
 - ``/graph/vhost/origin_http_session_month.png``
-- ``/graph/vhost/origin_http_session_year.png``3
+- ``/graph/vhost/origin_http_session_year.png``
 - ``/graph/vhost/origin_http_session_dash.png``
 - ``/graph/vhost/origin_traffic_day.png``
 - ``/graph/vhost/origin_traffic_week.png``
