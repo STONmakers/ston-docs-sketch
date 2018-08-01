@@ -34,8 +34,8 @@ Meta
 
 열람
 ------------------------------------
-- ``/conf/server.xml````
-- ``/conf/vhosts.xml````
+- ``/conf/server.xml``
+- ``/conf/vhosts.xml``
 - ``/conf/bypass.txt``
 - ``/conf/ttl.txt``
 - ``/conf/expires.txt``
