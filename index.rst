@@ -13,3 +13,4 @@ Spec
    admin/sync
    admin/api
    admin/stonjs
+   admin/imagelog
