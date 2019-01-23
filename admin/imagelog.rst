@@ -23,7 +23,7 @@ Image.log는 Access.log와 Origin.log사이에 위치하며 다음과 같은 관
    # server.xml - <Server><VHostDefault><Log>
    # vhosts.xml - <Vhosts><Vhost><Log>
 
-   <Image Type="time" Unit="1440">OFF</Image>
+   <Image Type="time" Unit="1440" Retention="10">OFF</Image>
 
 기본 값은 ``OFF`` 이다.
 
@@ -50,8 +50,15 @@ Image.log는 Access.log와 Origin.log사이에 위치하며 다음과 같은 관
 -  ``time`` 이미지 가공이 완료된 날짜
 -  ``cs-sid`` 이미지 가공을 요청한 클라이언트 세션 ID
 -  ``cs-uri`` 클라이언트가 요청한 URI
--  ``x-error-code`` 이미지 가공시 에러코드
--  ``x-error-reason`` 이미지 가공 에러 상세내용
+-  ``x-rescode`` 이미지 가공 에러코드
+   - ``200`` 성공
+   - ``400`` 원본 이미지의 응답코드가 200 OK가 아니다.
+   - ``401`` 원본 이미지 크기가 유효 범위가 아니다. (0 또는 ``MaxSourceSize`` 보다 큰 경우)
+   - ``402`` 원본 이미지가 100% 로딩되지 못했다.
+   - ``500`` 이미지 가공 중 에러가 발생했다.
+   - ``501`` 이미지 가공은 완료되었으나 저장과정 중 에러가 발생하였다.
+
+-  ``x-error-reason`` 이미지 가공 에러 상세내용. ( ``x-rescode`` 가 ``500`` 인 경우에만 제공 )
 -  ``x-origin-size (단위: Bytes)`` 원본 이미지 크기
 -  ``x-processed-size (단위: Bytes)`` 가공된  크기
 -  ``time-taken (단위: 밀리세컨드)`` 이미지 가공 HTTP 트랜잭션이 완료될 때까지의 전체 소요시간
