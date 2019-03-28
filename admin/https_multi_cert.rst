@@ -9,15 +9,14 @@ Fallback 인증서
 ECDSA로 서명된 인증서는 RSA로 서명된 인증서에 비해 성능상의 이점을 가진다. 
 `SSL.com <https://www.ssl.com/>`_ 의 `Comparing ECDSA vs RSA <https://www.ssl.com/article/comparing-ecdsa-vs-rsa/>`_ 에 따르면 112 bit레벨의 암호화에서 RSA는 2048 bit의 키가 필요한 반면 ECDSA는 224 bit 키만으로도 충분한다. 
 128bit 레벨의 암호화에선 RSA의 상황이 더 나빠지는데, RSA는 3072 bit, ECDSA는 256 bit가 필요하다. 
-결론적으로 보안레벨이 높아질수록 RSA는 효율적이지 못한 옵션이 된다. ::
+
+아래 `Cloudflare - ECDSA: The digital signature algorithm of a better internet <https://blog.cloudflare.com/ecdsa-the-digital-signature-algorithm-of-a-better-internet/>`_ 의 결과가 말해주듯 보안레벨이 높아질수록 RSA는 효율적이지 못한 옵션이 된다. ::
 
                                 sign/s
     256 bit ecdsa (nistp256)    9516.8
     rsa 2048 bits               1001.8
 
     (openssl 1.0.2 beta on x86_64 with enable-ec_nistp_64_gcc_128)
-
-<출처. `Cloudflare - ECDSA: The digital signature algorithm of a better internet <https://blog.cloudflare.com/ecdsa-the-digital-signature-algorithm-of-a-better-internet/>`_ >
 
 AWS CloudFront도 2018년부터 `ECDSA를 통한 원본서버 연결을 지원 <https://aws.amazon.com/ko/about-aws/whats-new/2018/03/cloudfront-now-supports-ecdsa-certificates-for-https-connections-to-origins/>`_ 하는등 시장에 널리 도입되고 있다.
 
