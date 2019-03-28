@@ -14,3 +14,4 @@ Spec
    admin/api
    admin/stonjs
    admin/imagelog
+   admin/https_multi_cert
