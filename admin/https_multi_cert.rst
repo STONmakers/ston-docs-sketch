@@ -3,11 +3,11 @@
 HTTPS
 ******************
 
-다중 인증서 구성
+Fallback 인증서
 ====================================
 
 ECDSA로 서명된 인증서는 RSA로 서명된 인증서에 비해 성능상의 이점을 가진다. 
-`SSL.com <https://www.ssl.com/>`_의 `Comparing ECDSA vs RSA <https://www.ssl.com/article/comparing-ecdsa-vs-rsa/>`_ 에 따르면 112 bit레벨의 암호화에서 RSA는 2048 bit의 키가 필요한 반면 ECDSA는 224 bit 키만으로도 충분한다. 
+`SSL.com <https://www.ssl.com/>`_ 의 `Comparing ECDSA vs RSA <https://www.ssl.com/article/comparing-ecdsa-vs-rsa/>`_ 에 따르면 112 bit레벨의 암호화에서 RSA는 2048 bit의 키가 필요한 반면 ECDSA는 224 bit 키만으로도 충분한다. 
 128bit 레벨의 암호화에선 RSA의 상황이 더 나빠지는데, RSA는 3072 bit, ECDSA는 256 bit가 필요하다. 
 결론적으로 보안레벨이 높아질수록 RSA는 효율적이지 못한 옵션이 된다. ::
 
