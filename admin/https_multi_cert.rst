@@ -26,7 +26,7 @@ ECDSA로 서명된 인증서는 RSA로 서명된 인증서에 비해 성능상�
 ECDSA 인증서 도입의 가장 큰 걸림돌은 클라이언트의 Cipher Suite 지원 여부이다.
 ECDSA는 TLS 1.2부터 표준이 되었기 때문에 이를 미지원하는 클라이언트라면 HTTPS 세션 연결이 불가능하다.
 
-이를 해결하기 위해 한 주체(Subject)에 대해 Secondary 인증서를 지원하는 구성이 필요하다. ::
+이를 해결하기 위해 한 주체(Subject)에 대해 다음과 같이 Secondary 인증서를 구성할 수 있다. ::
 
    <Https>
       <Cert>/usr/ssl/cert_ecdsa.pem | /usr/ssl/cert_rsa.pem</Cert>
