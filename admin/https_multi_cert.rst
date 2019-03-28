@@ -20,7 +20,7 @@ ECDSA로 서명된 인증서는 RSA로 서명된 인증서에 비해 성능상�
 
 .. note::
 
-   AWS CloudFront도 2018년부터 `ECDSA를 통한 원본서버 연결<https://aws.amazon.com/ko/about-aws/whats-new/2018/03/cloudfront-now-supports-ecdsa-certificates-for-https-connections-to-origins/>`_ 을 지원한다.
+   AWS CloudFront도 2018년부터 `ECDSA를 통한 원본서버 연결 <https://aws.amazon.com/ko/about-aws/whats-new/2018/03/cloudfront-now-supports-ecdsa-certificates-for-https-connections-to-origins/>`_ 을 지원한다.
 
 
 ECDSA 인증서 도입의 가장 큰 걸림돌은 클라이언트의 Cipher Suite 지원 여부이다.
