@@ -40,13 +40,25 @@
    # vhosts.xml - <Vhosts><Vhost><Media>
 
    <Viewer Status="Inactive">
-      <Group Name="sports" Time="10">
+      <Group Name="sports" Time="2">
          <Pattern>/baseball/*.ts</Pattern>
          <Pattern Time="1">/soccer/*.ts</Pattern>
          <Pattern>/baseketball/*.ts</Pattern>
       </Group>
-      <Group Name="shopping" Time="2">
+      <Group Name="shopping" Time="5">
          <Pattern>/shop/beauty</Pattern>
       </Group>
    </Viewer>
 
+-  ``<Viewer>`` 시청자수를 집계 할 여러 ``<Group>`` 을 하위 설정을 가진다. 
+
+   - ``Status`` 시청자수 집계 활성화 ( ``Active`` 또는 ``Inactive`` )
+   
+-  ``<Group>`` 시청자수 집계 단위이다. 여러 ``<Pattern>`` 을 하나의 단위로 집계할 수 있다.
+
+   - ``Name`` 통계(시청자수)를 구분하는 고유한 이름
+   - ``Time (기본: 2초)`` 재생시간 (범위: 1초 ~ 60초)
+
+ -  ``<Pattern>`` 입력 패턴과 일치하는 URL요청이 200 OK 응답으로 완전히 전송되었을 때 재생시간을 집계한다. 
+    성능상의 이유로 패턴은 와일드카드(*)만 지원한다. 
+    ``Time`` 속성을 설정하면 상위 설정인 ``<Group>`` 의 ``Time`` 속성을 사용하지 않는다.
