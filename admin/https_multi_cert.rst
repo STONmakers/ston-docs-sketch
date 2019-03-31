@@ -1,4 +1,4 @@
-﻿.. _imagelog:
+﻿.. _https_secondary_cert:
 
 HTTPS
 ******************
