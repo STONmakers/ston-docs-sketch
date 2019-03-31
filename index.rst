@@ -15,3 +15,5 @@ Spec
    admin/stonjs
    admin/imagelog
    admin/https_multi_cert
+   admin/video_viewer
+
