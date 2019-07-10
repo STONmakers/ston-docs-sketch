@@ -1,14 +1,14 @@
 ﻿.. _prefetch:
 
-Prefetch API
+Prefetch
 ******************
 
-Prefetch API를 이용해 콘텐츠를 미리 캐싱한다.
+API를 이용해 콘텐츠를 미리 캐싱한다.
 
 .. figure:: img/prefetch.png
    :align: center
 
-Prefetch는 관리자가 Manager port를 통해 Prefetch하고자 하는 파일 목록 업로드 하는 것으로 동작한다. 
+Prefetch는 관리자가 Manager port를 통해 Prefetch 파일 목록 업로드 하는 것으로 동작한다. 
 업로드 된 파일목록은 설정된 시간(즉시 또는 예약시점)에 순차적으로 다운로드 된다.
 
 
@@ -20,7 +20,7 @@ API 상세
    http://{STON-IP}:{ManagerPort}/prefetch
 
 
-업로드 파일 구조는 다음과 같이 가상호스트 별로 URL이 분리된 구조이다.
+업로드 파일 구조는 가상호스트 별로 URL 목록이 나열된 구조이다.
 
 .. figure:: img/prefetch_struct.png
    :align: center
@@ -63,7 +63,7 @@ API 상세
 스케쥴링
 ====================================
 
-이 기능의 목적은 혼잡한 시간을 피해 파일을 미리 캐싱해두어 서비스 품질을 높이는 것과 동시에 원본부하를 분산하는 것에 있다. 
+이 기능은 혼잡한 시간을 피해 파일을 미리 캐싱, 서비스 품질을 높임과 동시에 원본부하 분산하는 것이 목적이다.
 때문에 예정된 시간에 동작하는 것을 우선으로 개발되었다. ::
 
     # server.xml - <Server>
@@ -93,7 +93,7 @@ API 상세
 로그
 ====================================
 
-Prefetch의 로그는 2가지로 구분된다. 
+Prefetch 로그는 2가지로 구분된다. 
 
 먼저 Prefetch 목록의 접수와 실행은 info.log에 기록된다. ::
 
@@ -116,7 +116,7 @@ Prefetch의 로그는 2가지로 구분된다.
 위 로그 파일에서 알 수 있듯이 업로드된 형태 그대로 prefetch 디렉토리에 기록된다.  
 등록된 목록은 예약시점인 오전 2시부터 순차적으로 진행됨을 알 수 있다.
 
-Prefetch는 Loopback(127.0.0.1) 클라이언트를 기반으로 동작한다.
+Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다.
 따라서 Prefetcher가 STON을 원본서버로 바라보는 형태의 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>` 형식으로 기록된다. ::
 
     #date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port x-vhostname x-task
@@ -133,5 +133,6 @@ Prefetch는 Loopback(127.0.0.1) 클라이언트를 기반으로 동작한다.
 
 .. _note:
 
-   Prefetch의 의한 다운로드는 `Access 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#access>` 에 기록되지 않는다. 
+   Prefetch 다운로드는 `Access 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#access>` 에 기록되지 않는다. 
    만약 기록된다면 클라이언트 접근과 구분이 어려울 뿐만 아니라 통계/수치해석등을 위한 로그 분석 시 왜곡된 결과를 초래할 수 있다. 
+   `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>` 에는 정상적으로 기록된다.
