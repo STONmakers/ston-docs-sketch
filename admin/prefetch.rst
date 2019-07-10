@@ -113,6 +113,7 @@ Prefetch 로그는 2가지로 구분된다.
     2019-07-11 03:11:17 [INFO] [PREFETCH] Start task. (Task: /usr/loca/ston/prefetch/20190710_144909_3.scheduled)
     2019-07-11 04:05:04 [INFO] [PREFETCH] Complete task. (Task: /usr/loca/ston/prefetch/20190710_144909_3.scheduled)
 
+
 위 로그 파일에서 알 수 있듯이 업로드된 형태 그대로 prefetch 디렉토리에 기록된다.  
 등록된 목록은 예약시점인 오전 2시부터 순차적으로 진행됨을 알 수 있다.
 
@@ -126,10 +127,12 @@ Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다
     2019-07-11 02:00:56 11 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 125 322 2021918 103 0 1 10 93 http gzip+deflate - 80 - 0 192.168.0.100 20190710_155655_1.now
     2019-07-11 02:00:59 12 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?8 127.0.0.1 200 - - - 50029902 93 324 50029902 2443 0 1 22 2421 http - - 80 - 0 192.168.0.100 20190710_155655_1.now
 
+
 모든 필드는 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>` 형식과 유사하며 다음 확장필드를 가진다.
 
 -  ``x-vhostname`` 가상호스트명
 -  ``x-task`` prefetch 파일명
+
 
 .. _note:
 
