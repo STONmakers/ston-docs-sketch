@@ -134,7 +134,7 @@ Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다
 -  ``x-task`` prefetch 파일명
 
 
-.. _note:
+.. note::
 
    Prefetch 다운로드는 `Access 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#access>`_ 에 기록되지 않는다. 
    만약 기록된다면 클라이언트 접근과 구분이 어려울 뿐만 아니라 통계/수치해석등을 위한 로그 분석 시 왜곡된 결과를 초래할 수 있다. 
