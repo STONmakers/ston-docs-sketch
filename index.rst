@@ -10,10 +10,10 @@ Spec
 .. toctree::
    :maxdepth: 2
 
+   admin/prefetch
    admin/sync
    admin/api
    admin/stonjs
-   admin/imagelog
    admin/https_multi_cert
    admin/video_viewer
 
