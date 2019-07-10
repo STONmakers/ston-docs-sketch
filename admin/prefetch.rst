@@ -63,7 +63,7 @@ API 상세
 스케쥴링
 ====================================
 
-이 기능은 혼잡한 시간을 피해 파일을 미리 캐싱, 서비스 품질을 높임과 동시에 원본부하 분산하는 것이 목적이다.
+이 기능은 파일을 미리 캐싱하여, 서비스 품질 향상과 원본부하 분산 효과를 동시에 얻는 것이 목적이다.
 때문에 예정된 시간에 동작하는 것을 우선으로 개발되었다. ::
 
     # server.xml - <Server>
@@ -118,7 +118,7 @@ Prefetch 로그는 2가지로 구분된다.
 등록된 목록은 예약시점인 오전 2시부터 순차적으로 진행됨을 알 수 있다.
 
 Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다.
-따라서 Prefetcher가 STON을 원본서버로 바라보는 형태의 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>` 형식으로 기록된다. ::
+따라서 Prefetcher가 STON을 원본서버로 바라보는 형태의 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 형식으로 기록된다. ::
 
     #date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port x-vhostname x-task
     2019-07-11 02:00:56 7 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 93 323 1647094 280 0 1 168 112 http - - 80 - 0 192.168.0.100 20190710_155655_1.now
@@ -128,7 +128,7 @@ Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다
     2019-07-11 02:00:59 12 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?8 127.0.0.1 200 - - - 50029902 93 324 50029902 2443 0 1 22 2421 http - - 80 - 0 192.168.0.100 20190710_155655_1.now
 
 
-모든 필드는 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>` 형식과 유사하며 다음 확장필드를 가진다.
+모든 필드는 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 형식과 유사하며 다음 확장필드를 가진다.
 
 -  ``x-vhostname`` 가상호스트명
 -  ``x-task`` prefetch 파일명
@@ -136,6 +136,6 @@ Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다
 
 .. _note:
 
-   Prefetch 다운로드는 `Access 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#access>` 에 기록되지 않는다. 
+   Prefetch 다운로드는 `Access 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#access>`_ 에 기록되지 않는다. 
    만약 기록된다면 클라이언트 접근과 구분이 어려울 뿐만 아니라 통계/수치해석등을 위한 로그 분석 시 왜곡된 결과를 초래할 수 있다. 
-   `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>` 에는 정상적으로 기록된다.
+   `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 에는 정상적으로 기록된다.
