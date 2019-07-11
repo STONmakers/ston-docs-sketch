@@ -70,14 +70,16 @@ API 상세
 
     <Cache>
         <Prefetch>
-            <Time>02:00</Time>
+            <Time>04:00</Time>
             <Concurrent>5</Concurrent>
+            <Log Type="size" Unit="5" Retention="5" SysLog="OFF" Compression="OFF">ON</Log>
         </Prefetch>
     </Cache>
 
 
--  ``<Time> (기본: AM 2)`` 등록된 prefetch 를 수행할 시간을 설정한다. 오후 11시 10분을 설정하고 싶다면 23:10으로 설정한다.
+-  ``<Time> (기본: AM 4)`` 등록된 prefetch 를 수행할 시간을 설정한다. 오후 11시 10분을 설정하고 싶다면 23:10으로 설정한다.
 -  ``<Concurrent> (기본: 5)`` 동시에 다운로드를 진행할 세션 수를 설정한다.
+-  ``<Log>`` Prefetch 상세로그를 구성한다.
 
 스케쥴링의 단위는 Prefetch 목록이다. 
 
@@ -121,11 +123,11 @@ Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다
 따라서 Prefetcher가 STON을 원본서버로 바라보는 형태의 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 형식으로 기록된다. ::
 
     #date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port x-vhostname x-task
-    2019-07-11 02:00:56 7 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 93 323 1647094 280 0 1 168 112 http - - 80 - 0 192.168.0.100 20190710_155655_1.now
-    2019-07-11 02:00:56 9 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 125 323 1647094 93 0 1 11 82 http gzip+deflate - 80 - 0 192.168.0.100 20190710_155655_1.now
-    2019-07-11 02:00:56 10 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 93 322 2021918 103 0 2 10 93 http - - 80 - 0 192.168.0.100 20190710_155655_1.now
-    2019-07-11 02:00:56 11 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 125 322 2021918 103 0 1 10 93 http gzip+deflate - 80 - 0 192.168.0.100 20190710_155655_1.now
-    2019-07-11 02:00:59 12 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?8 127.0.0.1 200 - - - 50029902 93 324 50029902 2443 0 1 22 2421 http - - 80 - 0 192.168.0.100 20190710_155655_1.now
+    2019-07-11 02:00:56 7 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 93 323 1647094 280 0 1 168 112 http - - 80 - 0 foo.com 20190710_155655_1.now
+    2019-07-11 02:00:56 9 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 125 323 1647094 93 0 1 11 82 http gzip+deflate - 80 - 0 foo.com 20190710_155655_1.now
+    2019-07-11 02:00:56 10 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 93 322 2021918 103 0 2 10 93 http - - 80 - 0 foo.com 20190710_155655_1.now
+    2019-07-11 02:00:56 11 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 125 322 2021918 103 0 1 10 93 http gzip+deflate - 80 - 0 foo.com 20190710_155655_1.now
+    2019-07-11 02:00:59 12 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?8 127.0.0.1 200 - - - 50029902 93 324 50029902 2443 0 1 22 2421 http - - 80 - 0 foo.com 20190710_155655_1.now
 
 
 모든 필드는 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 형식과 유사하며 다음 확장필드를 가진다.
