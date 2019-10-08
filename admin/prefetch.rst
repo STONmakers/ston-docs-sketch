@@ -60,6 +60,41 @@ API 상세
 -  (bar.com의 예와 같이) 만약 가상호스트에 별도의 커스터마이징 모듈이 연동되어 있다면 예제의 ``auth-code`` 나 ``keyword`` 처럼 커스텀 필드로 확장 가능하다.
 
 
+POST 지원
+====================================
+
+prefetch는 GET 메소드를 기본으로 한다. 
+POST 메소드 원본서버와 통신해야 할 경우 다음과 같이 ``method`` , ``post-body`` 필드를 확장한다. ::
+
+    {
+        "prefetch" : {
+            "schedule" : "now",
+            "vhosts" : [
+                {
+                    "vhost" : "foo.com",
+                    "urls" : [
+                        { 
+                            "url" : "/log.zip",
+                            "method" : "post",
+                            "post-body" : "home=Cosby&favorite+flavor=flies"
+                        },
+                        {
+                            "url" : "/sample/data", 
+                            "method" : "post",
+                            "post-body" : "--boundary\nContent-Disposition: form-data; name=\"field1\""
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
+
+-  ``method`` POST 다운로드의 경우 항상 ``post`` 이다.
+-  ``post-body`` POST 메소드로 원본서버에 보낼 Body 데이터.
+
+
+
 스케쥴링
 ====================================
 
