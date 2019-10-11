@@ -11,6 +11,7 @@ Spec
    :maxdepth: 2
 
    admin/prefetch
+   admin/multisession
    admin/sync
    admin/api
    admin/stonjs
