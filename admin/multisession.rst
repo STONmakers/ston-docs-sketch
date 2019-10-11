@@ -12,7 +12,7 @@
 멀티세션 다운로드
 ====================================
 
-다운로드 크기와 해당 크기만큼 동시에 다운로드 받을 세션 수를 설정한다. ::
+다운로드 크기와 동시 다운로드 세션 수를 설정한다. ::
 
    # server.xml - <Server><VHostDefault><OriginOptions>
    # vhosts.xml - <Vhosts><Vhost><OriginOptions>
