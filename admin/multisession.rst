@@ -28,7 +28,7 @@
    <PartSize Session="15">1</PartSize>
 
 
-반면 1MB씩 15개의 세션으로 15MB만 다운로드를 진행하려면 다음과 같이 설정한다. ::
+반면 아래의 경우 결과적으로 15MB만 다운로드가 진행된다. ::
 
    <PartSize Session="15" Continue="Off">1</PartSize>
 
