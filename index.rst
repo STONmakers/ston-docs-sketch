@@ -17,4 +17,5 @@ Spec
    admin/stonjs
    admin/https_multi_cert
    admin/video_viewer
+   admin/snapfy
 
