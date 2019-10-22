@@ -136,7 +136,8 @@ Composite은 가장 핵심이 되는 구성요소로 "무엇을 어떤 방식으
    앞서 보았듯이 문자열 Key-Value로 정의하는 방식이다. ::
 
       {
-         "#style" : "https://example.com/snapfy/styles/simple"
+         "#style" : "https://example.com/snapfy/styles/simple",
+         ... (생략) ...
       }
 
    가장 단순하며 기본이 되는 방식이다.
@@ -153,7 +154,8 @@ Composite은 가장 핵심이 되는 구성요소로 "무엇을 어떤 방식으
             "https://example.com/snapfy/styles/body-portrait",
             "https://example.com/snapfy/styles/font-big-bold",
             "https://example.com/snapfy/styles/simple"
-         ]
+         ],
+         ... (생략) ...
       }
 
       // 세로 배경 + RED 계통의 폰트 조합 
@@ -162,7 +164,8 @@ Composite은 가장 핵심이 되는 구성요소로 "무엇을 어떤 방식으
             "https://example.com/snapfy/styles/body-portrait",
             "https://example.com/snapfy/styles/palette-red",
             "https://example.com/snapfy/styles/simple"
-         ]
+         ],
+         ... (생략) ...
       }
 
    매번 전체 스타일을 생성하지 않고도 조합만으로 다양한 스타일을 생성할 수 있어 높은 확장성을 가진다.
@@ -301,7 +304,7 @@ Style
 
 만약 주소가 위 URL로 노출되었다면 해당 이미지를 소스로 하여 아래와 같이 이미지툴을 연동할 수 있다. ::
 
-   http://img.example.com/snapfy/nike/imagetool/resize/100x100/format/webp
+   http://img.example.com/snapfy/nike/image-tool/resize/100x100/format/webp
 
 
 또한 아래와 같이 스타일을 정의할 때 ``img-`` 에 이미지툴 속성으로 효과를 먼저 적용할 수 있다. ::
@@ -309,13 +312,13 @@ Style
    "img-company-ci" : {
         "left": "195px",
         "top" : "25px",
-        "imagetool" : "/round/100"
+        "image-tool" : "/round/100"
    }
 
    "img-company-ci-grayround" : {
         "left": "195px",
         "top" : "25px",
-        "imagetool" : "/grayscale/true/round/100"
+        "image-tool" : "/grayscale/true/round/100"
    }
 
 
