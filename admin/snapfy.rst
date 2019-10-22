@@ -300,13 +300,13 @@ Style
    "img-company-ci" : {
         "left": "195px",
         "top" : "25px",
-        "image-tool" : "/round/100"
+        "image-tool" : "/dims/round/100"
    }
 
    "img-company-ci-grayround" : {
         "left": "195px",
         "top" : "25px",
-        "image-tool" : "/grayscale/true/round/100"
+        "image-tool" : "/dims/grayscale/true/round/100"
    }
 
 
@@ -337,17 +337,6 @@ Style
          <Options>
             <BypassPostRequest>OFF</BypassPostRequest>
             <PostRequest MaxContentLength="1024000" BodySensitive="ON">ON</PostRequest>
-
-            <TTL>
-               <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
-               <Res2xx Ratio="20" Max="1">1</Res2xx>
-               <Res3xx>1</Res3xx>
-               <Res4xx>1</Res4xx>
-               <Res5xx>1</Res5xx>
-               <ConnectTimeout>3</ConnectTimeout>
-               <ReceiveTimeout>3</ReceiveTimeout>
-               <OriginBusy>3</OriginBusy>
-            </TTL>
             <Dims Status="Active" Keyword="dims" />
          </Options>
          
@@ -369,19 +358,6 @@ Style
          <Origin ByClient="OFF">
             <Address>127.0.0.1:808</Address>
          </Origin>
-         
-         <Options>
-            <TTL>
-               <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
-               <Res2xx Ratio="20" Max="1">1</Res2xx>
-               <Res3xx>1</Res3xx>
-               <Res4xx>1</Res4xx>
-               <Res5xx>1</Res5xx>
-               <ConnectTimeout>3</ConnectTimeout>
-               <ReceiveTimeout>3</ReceiveTimeout>
-               <OriginBusy>3</OriginBusy>
-            </TTL>
-         </Options>
       </Vhost>
 
       <Vhost Name="image.com" Status="Active">
