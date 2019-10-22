@@ -341,66 +341,68 @@ Style
 
    <?xml version="1.0" encoding="UTF-8"?>
    <Vhosts>
-   <Vhost Name="snapfy.com" Status="Active">
-      <Origin ByClient="OFF">
-         <Address>127.0.0.1:808</Address>
-      </Origin>
-      
-      <Options>
-         <BypassPostRequest>OFF</BypassPostRequest>
-         <PostRequest MaxContentLength="1024000" BodySensitive="ON">ON</PostRequest>
+      <Vhost Name="snapfy.com" Status="Active">
+         <Origin ByClient="OFF">
+            <Address>127.0.0.1:808</Address>
+         </Origin>
+         
+         <Options>
+            <BypassPostRequest>OFF</BypassPostRequest>
+            <PostRequest MaxContentLength="1024000" BodySensitive="ON">ON</PostRequest>
 
-         <TTL>
-         <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
-         <Res2xx Ratio="20" Max="1">1</Res2xx>
-         <Res3xx>1</Res3xx>
-         <Res4xx>1</Res4xx>
-         <Res5xx>1</Res5xx>
-         <ConnectTimeout>3</ConnectTimeout>
-         <ReceiveTimeout>3</ReceiveTimeout>
-         <OriginBusy>3</OriginBusy>
-         </TTL>
+            <TTL>
+            <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
+            <Res2xx Ratio="20" Max="1">1</Res2xx>
+            <Res3xx>1</Res3xx>
+            <Res4xx>1</Res4xx>
+            <Res5xx>1</Res5xx>
+            <ConnectTimeout>3</ConnectTimeout>
+            <ReceiveTimeout>3</ReceiveTimeout>
+            <OriginBusy>3</OriginBusy>
+            </TTL>
+            <Dims Status="Active" Keyword="dims" />
+         </Options>
+         
+         <Snapfy Status="Active">
+            <Endpoints>
+                  <Endpoint>
+                     <Pattern>/snapfy/(.*)</Pattern>
+                     <Composite>/sb/composite/#1</Composite>
+                  </Endpoint>
+            </Endpoints>
+               <Cache>
+                  <Style>ON</Style>
+                  <Image>ON</Image>
+            </Cache>
+         </Snapfy>    
+      </Vhost>
+
+      <Vhost Name="style.com" Status="Active">
+         <Origin ByClient="OFF">
+            <Address>127.0.0.1:808</Address>
+         </Origin>
+         
+         <Options>
+            <TTL>
+            <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
+            <Res2xx Ratio="20" Max="1">1</Res2xx>
+            <Res3xx>1</Res3xx>
+            <Res4xx>1</Res4xx>
+            <Res5xx>1</Res5xx>
+            <ConnectTimeout>3</ConnectTimeout>
+            <ReceiveTimeout>3</ReceiveTimeout>
+            <OriginBusy>3</OriginBusy>
+            </TTL>
+         </Options>
          <Dims Status="Active" Keyword="dims" />
-      </Options>
-      
-      <Snapfy Status="Active">
-         <Endpoints>
-               <Endpoint>
-                  <Pattern>/snapfy/(.*)</Pattern>
-                  <Composite>/sb/composite/#1</Composite>
-               </Endpoint>
-         </Endpoints>
-            <Cache>
-               <Style>ON</Style>
-               <Image>ON</Image>
-         </Cache>
-      </Snapfy>    
-   </Vhost>
+      </Vhost>
 
-   <Vhost Name="style.com" Status="Active">
-      <Origin ByClient="OFF">
-         <Address>127.0.0.1:808</Address>
-      </Origin>
-      
-      <Options>
-         <TTL>
-         <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
-         <Res2xx Ratio="20" Max="1">1</Res2xx>
-         <Res3xx>1</Res3xx>
-         <Res4xx>1</Res4xx>
-         <Res5xx>1</Res5xx>
-         <ConnectTimeout>3</ConnectTimeout>
-         <ReceiveTimeout>3</ReceiveTimeout>
-         <OriginBusy>3</OriginBusy>
-         </TTL>
-      </Options>
-      <Dims Status="Active" Keyword="dims" />
-   </Vhost>
-
-   <Vhost Name="image.com" Status="Active">
-      <Origin>
-         <Address>image.com</Address>
-      </Origin>
-      <Dims Status="Active" Keyword="dims" />
-   </Vhost>
+      <Vhost Name="image.com" Status="Active">
+         <Origin>
+            <Address>image.com</Address>
+         </Origin>
+         <Dims Status="Active" Keyword="dims" />
+      </Vhost>
    </Vhosts>
+
+로그 정리 필요
