@@ -370,9 +370,9 @@ Style
                      <Composite>/sb/composite/#1</Composite>
                   </Endpoint>
             </Endpoints>
-               <Cache>
-                  <Style>ON</Style>
-                  <Image>ON</Image>
+            <Cache>
+               <Style>ON</Style>
+               <Image>ON</Image>
             </Cache>
          </Snapfy>    
       </Vhost>
