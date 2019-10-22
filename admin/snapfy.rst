@@ -3,11 +3,10 @@
 Snapfy
 ******************
 
-Snapfy/스냅파이는 정보와 이미지를 단일 이미지로 렌더링하는 엔진이다. 
+Snapfy/스냅파이는 정보(API), 스타일, 이미지를 on-the-fly로 결합하는 이미지 엔진이다. 
 
-.. note::
-
-   전체 구조 이미지 
+.. figure:: img/snapfy1.png
+   :align: center
 
 
 주요 특징은 다음과 같다.
@@ -23,7 +22,7 @@ Snapfy/스냅파이는 정보와 이미지를 단일 이미지로 렌더링하�
    Snapfied Image 생성에 필요한 정보, Source-Image등은 Component라고 지칭한다.
 
 
-Snapfy는 Composite, Style로 구성된다. 
+Snapfy 구성에는 Composite과 Style이 필요하다.
 
 -  **Composite**
    
@@ -41,45 +40,34 @@ Snapfy는 Composite, Style로 구성된다.
 Composite
 ====================================
 
-Composite은 가장 핵심이 되는 구성요소로 "무엇을 어떤 방식으로 그릴 것인가?" 를 정의한다. 
-중첩이 없는 1차원 JSON 형식으로 표현된다.
-
-
-.. note::
-
-   간단한 샘플 이미지
-
-
-위 이미지를 구성하는 Composite은 다음과 같다. ::
+Composite은 가장 핵심이 되는 구성요소로 "무엇을 어떤 방식으로 그릴 것인가?" 를 JSON 형식으로 정의한다. ::
 
    {
       "#style" : "https://example.com/snapfy/styles/simple",
       "#body" : "body",
       "img-company-ci" : "http://www.winesoft.co.kr/assets/img/winesoft.png",
-      "txt-main" : "스냅파이\n SNAPFY ",
-      "txt-sub" : "반갑습니다."
+      "txt-main" : "생기가득\n신선 먹거리",
+      "txt-sub" : "신선한 야채와\n고당도 과일!"
    }
 
-다음과 같이 간단히 ``#body`` 만 변경하여 배경 색과 크기가 다른 이미지를 만들 수 있다.
+다음과 같이 간단히 ``#body`` 만 변경하여 배경 색과 크기가 다른 이미지를 만들 수 있다. 
 
-.. note::
-
-   간단한 샘플 이미지2
-
+.. figure:: img/snapfy2.png
+   :align: center
 
 ::
 
    {
-      "#style" : "https://example.com/snapfy/styles/landscape",
+      "#style" : "https://example.com/snapfy/styles/simple",
       "#body" : "body-blue",
       ... (생략) ...
    }
 
+
 또는 ``#style`` 을 변경하여 완전히 다른 형태의 이미지를 즉시 만들 수 있다.
 
-.. note::
-
-   간단한 샘플 이미지2
+.. figure:: img/snapfy3.png
+   :align: center
 
 
 ::
