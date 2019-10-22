@@ -351,14 +351,14 @@ Style
             <PostRequest MaxContentLength="1024000" BodySensitive="ON">ON</PostRequest>
 
             <TTL>
-            <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
-            <Res2xx Ratio="20" Max="1">1</Res2xx>
-            <Res3xx>1</Res3xx>
-            <Res4xx>1</Res4xx>
-            <Res5xx>1</Res5xx>
-            <ConnectTimeout>3</ConnectTimeout>
-            <ReceiveTimeout>3</ReceiveTimeout>
-            <OriginBusy>3</OriginBusy>
+               <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
+               <Res2xx Ratio="20" Max="1">1</Res2xx>
+               <Res3xx>1</Res3xx>
+               <Res4xx>1</Res4xx>
+               <Res5xx>1</Res5xx>
+               <ConnectTimeout>3</ConnectTimeout>
+               <ReceiveTimeout>3</ReceiveTimeout>
+               <OriginBusy>3</OriginBusy>
             </TTL>
             <Dims Status="Active" Keyword="dims" />
          </Options>
@@ -384,17 +384,16 @@ Style
          
          <Options>
             <TTL>
-            <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
-            <Res2xx Ratio="20" Max="1">1</Res2xx>
-            <Res3xx>1</Res3xx>
-            <Res4xx>1</Res4xx>
-            <Res5xx>1</Res5xx>
-            <ConnectTimeout>3</ConnectTimeout>
-            <ReceiveTimeout>3</ReceiveTimeout>
-            <OriginBusy>3</OriginBusy>
+               <NoCache Ratio="0" Max="5" MaxAge="0">1</NoCache>
+               <Res2xx Ratio="20" Max="1">1</Res2xx>
+               <Res3xx>1</Res3xx>
+               <Res4xx>1</Res4xx>
+               <Res5xx>1</Res5xx>
+               <ConnectTimeout>3</ConnectTimeout>
+               <ReceiveTimeout>3</ReceiveTimeout>
+               <OriginBusy>3</OriginBusy>
             </TTL>
          </Options>
-         <Dims Status="Active" Keyword="dims" />
       </Vhost>
 
       <Vhost Name="image.com" Status="Active">
