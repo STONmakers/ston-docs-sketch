@@ -375,22 +375,32 @@ Style
    </Vhosts>
 
 
-동작을 위해서는 다음 2조건을 만족해야 한다.
+Snapfy는 다음 2조건을 만족해야 동작한다.
 
 -  ``<Snapfy>`` 설정의 ``Status`` 속성이 ``Active`` 인 경우
 -  클라이언트가 요청한 URL이 ``<Endpoint>`` 의 ``<Pattern>`` 과 매칭되는 경우
 
 이상의 조건이 아니라면 일반 캐싱으로 동작한다. 기타 세부 설정은 다음과 같다.
 
--  ``<Endpoints>``
+-  ``<Endpoints>`` 하위에 멀티 ``<Endpoint>`` 를 통해 엔드유저에게 노출할 주소를 설정한다. 정규표현식을 사용한다.
 
--  ``<Default>``
+   - ``<Pattern>`` 엔드유저가 호출하게 될 Snapfy-URL 패턴
+   - ``<Composite>`` (GET 방식일 경우) 패턴에 해당하는 Composite 주소 패턴
 
-   -  ``<Width>``
 
-   -  ``<Height>``
+-  ``<Cache>`` 이미지 생성에 필요한 리소스(Style, Image 등)를 캐싱한다. 
+   캐싱을 위해서는 참조되는 URL의 도메인명과 동일한 가상호스트가 설정되어 있어야 한다.
 
-   -  ``<Format>``
+   - ``<Style> (기본: ON)`` Style API 호출 결과를 캐싱한다.
+   - ``<Image> (기본: ON)`` 참조하는 이미지 파일을 캐싱한다.
 
-   -  ``<Quality>``
+
+-  ``<Output>`` Snapfied-Image 기본 설정
+
+   -  ``<Width> (기본: 640, 단위: 픽셀)`` 기본 가로 크기
+   -  ``<Height> (기본: 640, 단위: 픽셀)`` 기본 세로 크기
+   -  ``<Format> (기본: png)`` 기본 이미지 포맷 ( ``png`` 또는 ``jpg`` )
+   -  ``<Quality> (기본: 85, 범위: 0~100)`` 이미지 포맷이 ``jpg`` 인 경우 포맷을 결정한다.
+
+
 
