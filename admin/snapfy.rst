@@ -351,6 +351,12 @@ Style
                <Style>ON</Style>
                <Image>ON</Image>
             </Cache>
+            <Default>
+               <Width>640</Width>
+               <Height>480</Height>
+               <Format Quality="85">png/Format>
+               <OmitBackground>OFF</OmitBackground>
+            </Default>
          </Snapfy>    
       </Vhost>
 
@@ -368,4 +374,12 @@ Style
       </Vhost>
    </Vhosts>
 
-로그 정리 필요
+
+동작을 위해서는 다음 2조건을 만족해야 한다.
+
+-  ``<Snapfy>`` 설정의 ``Status`` 속성이 ``Active`` 인 경우
+-  클라이언트가 요청한 URL이 ``<Endpoint>`` 의 ``<Pattern>`` 과 매칭되는 경우
+
+이상의 조건이 아니라면 일반 캐싱으로 동작한다. 기타 세부 설정은 다음과 같다.
+
+-  ``<Endpoints>``
