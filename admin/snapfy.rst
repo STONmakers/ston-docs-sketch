@@ -351,12 +351,12 @@ Style
                <Style>ON</Style>
                <Image>ON</Image>
             </Cache>
-            <Default>
+            <Output>
                <Width>640</Width>
                <Height>480</Height>
                <Format>png</Format>
                <Quality>85</Quality>
-            </Default>
+            </Output>
          </Snapfy>    
       </Vhost>
 
@@ -383,10 +383,14 @@ Style
 이상의 조건이 아니라면 일반 캐싱으로 동작한다. 기타 세부 설정은 다음과 같다.
 
 -  ``<Endpoints>``
+
 -  ``<Default>``
+
    -  ``<Width>``
+
    -  ``<Height>``
+
    -  ``<Format>``
+
    -  ``<Quality>``
 
-   
