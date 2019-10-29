@@ -179,47 +179,6 @@ Composite은 가장 핵심이 되는 구성요소로 "무엇을 어떤 방식으
 
 
 
-.. _snapfy-composite-style-body:
-
-이미지 배경
-------------------------------------
-
-배경은 ``#body`` 로 정의되며, 기본 값은 ``body`` 이다.  
-따라서 아래 2표현은 동일하다. ::
-
-   {
-      "#style" : "https://example.com/snapfy/styles/simple",
-      "#body" : "body"
-   }
-
-   {
-      "#style" : "https://example.com/snapfy/styles/simple"
-   }
-
-``#body`` 태그가 별도로 존재하는 이유는 ``#style`` 에 여러 body 구성(이미지 크기 및 배경)을 해 놓고 선택적으로 사용하기 위함이다. ::
-
-   # 같은 #style 주소를 참조한다.
-   # 검은 배경
-   {
-      "#style" : "https://example.com/snapfy/styles/simple",
-      "#body" : "body-black"
-   }
-
-   # 와이드 배경
-   {
-      "#style" : "https://example.com/snapfy/styles/simple",
-      "#body" : "body-wide"
-   }
-
-   # 이미지 배경
-   {
-      "#style" : "https://example.com/snapfy/styles/simple",
-      "#body" : "body-backwall"
-   }
-
-
-
-
 Style
 ====================================
 
@@ -275,6 +234,88 @@ Style
     }
 
 각 컴포넌트-스타일(컴포넌트를 그리기 위해 정의한 스타일)은 1차원 JSON 형식으로 표현되며 `CSS <https://www.w3schools.com/css/default.asp>`_ 와 동일한 <Key/Value>를 가진다. 
+
+
+.. _snapfy-composite-style-output:
+
+이미지 속성
+------------------------------------
+
+``body`` 의 다음 속성으로 출력되는 이미지를 동적으로 구성할 수 있다.
+
+=========== ========================================
+속성         설명
+=========== ========================================
+width       이미지 가로 크기 (단위: 픽셀)
+height      이미지 세로 크기 (단위: 픽셀)
+format      이미지 포맷 (png 또는 jpg)
+quality     이미지 포맷이 jpg인 경우 품질 (0~100)
+=========== ========================================
+
+동적으로 출력 이미지 형태를 다음과 같이 조절할 수 있다.
+
+::
+
+    {
+        "body-jpg" : {
+            "background-color": "#4CCAD4",
+            "format" : "jpg"
+        },
+
+        "body-jpg-low" : {
+            "background-color": "#4CCAD4",
+            "format" : "jpg",
+            "quality" : 60
+        },
+
+        "body-png" : {
+            "background-color": "#4CCAD4",
+            "format" : "png"
+        }
+    }
+
+속성이 존재하지 않을 경우 기본설정을 사용한다. (운영 참조)
+
+
+
+.. _snapfy-composite-style-select:
+
+이미지 선택
+------------------------------------
+
+여러 형태의 이미지 구성이 가능하며 이를 ``#body`` 속성을 통해 선택할 수 있다.
+기본 값은 ``body`` 이다. 따라서 아래 2표현은 동일하다. ::
+
+   {
+      "#style" : "https://example.com/snapfy/styles/simple",
+      "#body" : "body"
+   }
+
+   {
+      "#style" : "https://example.com/snapfy/styles/simple"
+   }
+
+``#body`` 태그가 별도로 존재하는 이유는 ``#style`` 에 여러 body 구성(이미지 크기 및 배경)을 해 놓고 선택적으로 사용하기 위함이다. ::
+
+   # 같은 #style 주소를 참조한다.
+   # 검은 배경
+   {
+      "#style" : "https://example.com/snapfy/styles/simple",
+      "#body" : "body-jpg"
+   }
+
+   # 와이드 배경
+   {
+      "#style" : "https://example.com/snapfy/styles/simple",
+      "#body" : "body-png"
+   }
+
+   # 이미지 배경
+   {
+      "#style" : "https://example.com/snapfy/styles/simple",
+      "#body" : "body-backwall"
+   }
+
 
 
 
@@ -398,7 +439,7 @@ Snapfy는 다음 2조건을 만족해야 동작한다.
 -  ``<Output>`` Snapfied-Image 기본 설정
 
    -  ``<Width> (기본: 640, 단위: 픽셀)`` 기본 가로 크기
-   -  ``<Height> (기본: 640, 단위: 픽셀)`` 기본 세로 크기
+   -  ``<Height> (기본: 480, 단위: 픽셀)`` 기본 세로 크기
    -  ``<Format> (기본: png)`` 기본 이미지 포맷 ( ``png`` 또는 ``jpg`` )
    -  ``<Quality> (기본: 85, 범위: 0~100)`` 이미지 포맷이 ``jpg`` 인 경우 포맷을 결정한다.
 
