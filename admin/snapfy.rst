@@ -35,6 +35,32 @@ Snapfy 구성에는 Composite과 Style이 필요하다.
 
 
 
+.. _snapfy-flow:
+
+동작 시나리오
+====================================
+
+3가지 동작 시나리오를 가진다.
+
+1. ``Endpoint`` 주소를 GET 방식으로 요청한다. 백엔드로부터 Composite과 Style을 다운로드 받는다. Style은 멀티로 구성이 가능하다.
+   
+   .. figure:: img/snapfy4.png
+      :align: center
+
+
+2. ``Endpoint`` 주소로 Composite을 POST 방식으로 업로드한다. 백엔드로부터 Style을 다운로드 받는다. Style은 멀티로 구성이 가능하다.
+   
+   .. figure:: img/snapfy5.png
+      :align: center
+
+
+3. ``Endpoint`` 주소로 Composite과 Style을 POST 방식으로 업로드한다. 백엔드와 통신하지 않는다.
+
+   .. figure:: img/snapfy6.png
+      :align: center
+
+
+
 .. _snapfy-composite:
 
 Composite
