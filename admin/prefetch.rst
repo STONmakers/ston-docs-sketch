@@ -98,32 +98,62 @@ POST 메소드 원본서버와 통신해야 할 경우 다음과 같이 ``method
 스케쥴링
 ====================================
 
-이 기능은 파일을 미리 캐싱하여, 서비스 품질 향상과 원본부하 분산 효과를 동시에 얻는 것이 목적이다.
-때문에 예정된 시간에 동작하는 것을 우선으로 개발되었다. ::
-
-    # server.xml - <Server>
-
-    <Cache>
-        <Prefetch>
-            <Time>04:00</Time>
-            <Concurrent>5</Concurrent>
-            <Log Type="size" Unit="5" Retention="5" SysLog="OFF" Compression="OFF">ON</Log>
-        </Prefetch>
-    </Cache>
-
-
--  ``<Time> (기본: AM 4)`` 등록된 prefetch 를 수행할 시간을 설정한다. 오후 11시 10분을 설정하고 싶다면 23:10으로 설정한다.
--  ``<Concurrent> (기본: 5)`` 동시에 다운로드를 진행할 세션 수를 설정한다.
--  ``<Log>`` Prefetch 상세로그를 구성한다.
-
-스케쥴링의 단위는 Prefetch 목록이다. 
+파일을 원하는 시점에 미리 캐싱 해두면 서비스 품질 향상과 원본 부하분산 효과를 동시에 얻을 수 있다. 
 
 .. figure:: img/prefetch_schedule1.png
    :align: center
 
 
--  FIFO 큐 방식이지만 ``schedule`` 이 ``now`` 인 목록이 그렇지 않은 목록보다 우선한다.
--  현재 진행 중인 Prefetch 목록은 간섭받지 않는다. 
+스케쥴링에는 3가지 방식이 제공된다.
+
+
+1. Prefetch 시간을 고정한다. ``schedule`` 속성을 생략한다. ::
+
+      # server.xml - <Server>
+
+      <Cache>
+        <Prefetch>
+          <Time>04:00</Time>
+          <Concurrent>5</Concurrent>
+          <Log Type="size" Unit="5" Retention="5" SysLog="OFF" Compression="OFF">ON</Log>
+        </Prefetch>
+      </Cache>
+
+
+   -  ``<Time> (기본: AM 4)`` 등록된 prefetch 를 수행할 시간을 설정한다. 오후 11시 10분을 설정하고 싶다면 23:10으로 설정한다.
+   -  ``<Concurrent> (기본: 5)`` 동시에 다운로드를 진행할 세션 수를 설정한다.
+   -  ``<Log>`` Prefetch 상세로그를 구성한다.
+
+
+2. 즉시 Prefetch를 수행한다. 
+   ``schedule`` 속성을 ``now`` 로 지정한다. ::
+
+        {
+            "prefetch" : {
+                "schedule" : "now",
+                "vhosts" : [ ... (생략) ... ]
+            }
+        }
+
+3. Prefetch 시간을 예약한다.
+   ``schedule`` 속성을 ``reserved`` 로 지정하고 ``reservation-time`` 을 반드시 ISO-8601 규격으로 명시한다. ::
+
+        {
+            "prefetch" : {
+                "schedule" : "reserved",
+                "reservation-time" : "2019-11-19T09:00:00Z",
+                "vhosts" : [ ... (생략) ... ]
+            }
+        }
+
+
+수행정책은 다음과 같다.
+
+-  Prefetch 스케쥴러의 기본 동작은 FIFO 이다.
+-  현재 진행 중인 Prefetch 목록은 간섭받지 않는다.
+-  ``schedule`` 이 ``now`` 인 목록이 그렇지 않은 목록보다 항상 우선한다.
+-  ``schedule`` 이 ``reserved`` 인 목록의 시간이 같을 경우 먼저 입력된 것이 우선한다.
+-  ``schedule`` 이 ``reserved`` 인 목록이 경쟁에서 밀려 수행시간이 지나면 다른 ``reserved`` 보다 우선 수행된다.
 
 
 
