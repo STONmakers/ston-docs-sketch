@@ -164,21 +164,12 @@ Prefetch 로그는 2가지로 구분된다.
 
 먼저 Prefetch 목록의 접수와 실행은 info.log에 기록된다. ::
 
-    2019-07-10 14:48:51 [INFO] [PREFETCH] Register task. (Task: /usr/loca/ston/prefetch/20190710_144851_0.scheduled)
-    2019-07-10 14:48:58 [INFO] [PREFETCH] Register task. (Task: /usr/loca/ston/prefetch/20190710_144858_1.scheduled)
-    2019-07-10 14:49:04 [INFO] [PREFETCH] Register task. (Task: /usr/loca/ston/prefetch/20190710_144904_2.scheduled)
-    2019-07-10 14:49:09 [INFO] [PREFETCH] Register task. (Task: /usr/loca/ston/prefetch/20190710_144909_3.scheduled)
-
-    ... (중략) ...
-
-    2019-07-11 02:00:00 [INFO] [PREFETCH] Start task. (Task: /usr/loca/ston/prefetch/20190710_144851_0.scheduled)
-    2019-07-11 02:02:05 [INFO] [PREFETCH] Complete task. (Task: /usr/loca/ston/prefetch/20190710_144851_0.scheduled)
-    2019-07-11 02:02:05 [INFO] [PREFETCH] Start task. (Task: /usr/loca/ston/prefetch/20190710_144858_1.scheduled)
-    2019-07-11 02:30:47 [INFO] [PREFETCH] Complete task. (Task: /usr/loca/ston/prefetch/20190710_144858_1.scheduled)
-    2019-07-11 02:30:47 [INFO] [PREFETCH] Start task. (Task: /usr/loca/ston/prefetch/20190710_144904_2.scheduled)
-    2019-07-11 03:11:17 [INFO] [PREFETCH] Complete task. (Task: /usr/loca/ston/prefetch/20190710_144904_2.scheduled)
-    2019-07-11 03:11:17 [INFO] [PREFETCH] Start task. (Task: /usr/loca/ston/prefetch/20190710_144909_3.scheduled)
-    2019-07-11 04:05:04 [INFO] [PREFETCH] Complete task. (Task: /usr/loca/ston/prefetch/20190710_144909_3.scheduled)
+    2019-11-19 16:54:17 [INFO] [PREFETCH] Register task. (Task: 1574148743_4.reserved)
+    2019-11-19 16:54:18 [INFO] [PREFETCH] Start task. (Task: 1574148743_4.reserved)
+    2019-11-19 16:54:20 [INFO] [PREFETCH] Complete task. (Task: 1574148743_4.reserved)
+    2019-11-19 17:00:00 [INFO] [PREFETCH] Start task. (Task: 1574150029_2.scheduled)
+    2019-11-19 17:00:03 [INFO] [PREFETCH] Complete task. (Task: 1574150029_2.scheduled)
+    2019-11-19 17:00:04 [INFO] [PREFETCH] Start task. (Task: 1574149879_0.scheduled)
 
 
 위 로그 파일에서 알 수 있듯이 업로드된 형태 그대로 prefetch 디렉토리에 기록된다.  
@@ -188,11 +179,14 @@ Prefetch를 수행하는 Prefetcher는 Loopback(127.0.0.1) 클라이언트이다
 따라서 Prefetcher가 STON을 원본서버로 바라보는 형태의 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 형식으로 기록된다. ::
 
     #date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port x-vhostname x-task
-    2019-07-11 02:00:56 7 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 93 323 1647094 280 0 1 168 112 http - - 80 - 0 foo.com 20190710_155655_1.now
-    2019-07-11 02:00:56 9 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.jpg?8 127.0.0.1 200 - - - 1647094 125 323 1647094 93 0 1 11 82 http gzip+deflate - 80 - 0 foo.com 20190710_155655_1.now
-    2019-07-11 02:00:56 10 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 93 322 2021918 103 0 2 10 93 http - - 80 - 0 foo.com 20190710_155655_1.now
-    2019-07-11 02:00:56 11 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.gif?8 127.0.0.1 200 - - - 2021918 125 322 2021918 103 0 1 10 93 http gzip+deflate - 80 - 0 foo.com 20190710_155655_1.now
-    2019-07-11 02:00:59 12 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?8 127.0.0.1 200 - - - 50029902 93 324 50029902 2443 0 1 22 2421 http - - 80 - 0 foo.com 20190710_155655_1.now
+    2019-11-19 17:00:03 10 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?v=3 127.0.0.1 200 - - - 50029902 111 324 50029902 2288 0 0 3 2285 http gzip+deflate - 80 - 0 foo.com 1574150029_2.now
+    2019-11-19 17:00:03 9 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?v=3 127.0.0.1 200 - - - 50029902 79 324 50029902 2354 0 0 3 2351 http - - 80 - 0 foo.com 1574150029_2.now
+    2019-11-19 17:00:03 12 1 127.0.0.1 GET 127.0.0.1 /hideface/test2.mp4?v=4 127.0.0.1 200 - - - 49547420 111 324 49547420 2406 0 0 3 2403 http gzip+deflate - 80 - 0 foo.com 1574150029_2.reserved
+    2019-11-19 17:00:03 11 1 127.0.0.1 GET 127.0.0.1 /hideface/test2.mp4?v=4 127.0.0.1 200 - - - 49547420 79 324 49547420 2408 0 0 3 2405 http - - 80 - 0 foo.com 1574150029_2.scheduled
+    2019-11-19 17:00:04 18 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?v=10 127.0.0.1 200 - - - 50029902 112 324 50029902 172 0 1 2 170 http gzip+deflate - 80 - 0 foo.com 1574149879_0.scheduled
+    2019-11-19 17:00:04 20 1 127.0.0.1 GET 127.0.0.1 /hideface/test2.mp4?v=11 127.0.0.1 200 - - - 49547420 112 324 49547420 171 0 0 2 169 http gzip+deflate - 80 - 0 foo.com 1574149879_0.now
+    2019-11-19 17:00:04 19 1 127.0.0.1 GET 127.0.0.1 /hideface/test2.mp4?v=11 127.0.0.1 200 - - - 49547420 80 324 49547420 173 0 1 2 171 http - - 80 - 0 foo.com 1574149879_0.scheduled
+    2019-11-19 17:00:04 17 1 127.0.0.1 GET 127.0.0.1 /hideface/test1.mp4?v=10 127.0.0.1 200 - - - 50029902 80 324 50029902 173 0 0 2 171 http - - 80 - 0 foo.com 1574149879_0.scheduled.now
 
 
 모든 필드는 `Origin 로그 <https://ston.readthedocs.io/ko/latest/admin/log.html#origin>`_ 형식과 유사하며 다음 확장필드를 가진다.
