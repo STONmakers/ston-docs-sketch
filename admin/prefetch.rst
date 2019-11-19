@@ -149,10 +149,10 @@ POST 메소드 원본서버와 통신해야 할 경우 다음과 같이 ``method
 
 수행정책은 다음과 같다.
 
--  Prefetch 스케쥴러의 기본 동작은 FIFO 이다.
+-  Prefetch 스케쥴러의 기본 동작은 FIFO(First Input First Out) 이다.
 -  현재 진행 중인 Prefetch 목록은 간섭받지 않는다.
--  ``schedule`` 이 ``now`` 인 목록이 그렇지 않은 목록보다 항상 우선한다.
--  ``schedule`` 이 ``reserved`` 인 목록의 시간이 같을 경우 먼저 입력된 것이 우선한다.
+-  ``schedule`` 이 ``now`` 인 목록이 그렇지 않은 목록보다 항상 우선한다. ``now``목록끼리는 FIFO 로 수행된다.
+-  ``schedule`` 이 ``reserved`` 인 목록의 시간이 같을 경우 FIFO 로 수행된다.
 -  ``schedule`` 이 ``reserved`` 인 목록이 경쟁에서 밀려 수행시간이 지나면 다른 ``reserved`` 보다 우선 수행된다.
 
 
