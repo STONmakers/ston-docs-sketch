@@ -1,6 +1,6 @@
-﻿.. _snapfy:
+﻿.. _snapfy_alpha:
 
-Snapfy
+Snapfy ``Alpha``
 ******************
 
 Snapfy/스냅파이는 정보(API), 스타일, 이미지를 on-the-fly로 결합하는 이미지 엔진이다. 
