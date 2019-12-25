@@ -41,7 +41,7 @@ Snapfy ``Beta``
 .. _header-n55:
 
 GET 방식
-============================================================================================================================================================================================================================================================-
+------------------------------------
 
 결합할 정보(Model)와 표현(View)을 QueryString으로 입력한다.
 
@@ -52,7 +52,7 @@ GET 방식
 .. _header-n58:
 
 POST 방식
-============================================================================================================================================================================================================================================================-~
+------------------------------------
 
 Body와 QueryString을 혼합하여 사용한다.
 
@@ -187,13 +187,14 @@ Snapfy엔진은 View의 태그를 참조하여 이미지를 생성한다. png포
 
 ..
 
-   이미지툴을 통한 2차 가공이 가능하기 때문에 포맷은 큰 의미를 가지지
-   않는다. 아래 2표현 모두 가능하다.
 
-   .. code:: http
+이미지툴을 통한 2차 가공이 가능하기 때문에 포맷은 큰 의미를 가지지
+않는다. 아래 2표현 모두 가능하다.
 
-      GET /snapfy/dims/format/webp?view=catalog&mode=wine
-      GET /snapfy?view=catalog&mode=wine/dims/format/webp
+.. code:: http
+
+   GET /snapfy/dims/format/webp?view=catalog&mode=wine
+   GET /snapfy?view=catalog&mode=wine/dims/format/webp
 
 .. _header-n87:
 
@@ -267,20 +268,9 @@ Snapfy엔진은 View의 태그를 참조하여 이미지를 생성한다. png포
 
 위 설정은 다음과 같이 동작한다.
 
-.. code:: mermaid
+.. figure:: img/snapfy7.png
+   :align: center
 
-   sequenceDiagram
-       Client-->>Snapfy: GET /snapfy?model=wine&view=catalog
-       Snapfy-->>Snapfy: MISS
-       Snapfy-->>foo.com: GET /wine
-       foo.com->>Snapfy: 200 OK
-       Snapfy-->>bar.com: GET /catalog
-       bar.com->>Snapfy: 200 OK
-       Snapfy-->>Snapfy: Create image & cache
-       Snapfy->>Client: 200 OK
-       Client-->>Snapfy: GET /snapfy?model=wine&view=catalog
-       Snapfy-->>Snapfy: HIT
-       Snapfy->>Client: 200 OK
 
 ``<Endpoint RefCache="ON">`` 이라면 foo.com과 bar.com에서 참조된 모든
 리소스는 캐싱 엔진 내에 적재되어 네트워크 지연으로 인한 서비스 속도
