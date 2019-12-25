@@ -91,8 +91,10 @@ Body와 QueryString을 혼합하여 사용한다.
    }
 
 
-.. code:: http
+
+.. note::
    QueryString과 Body의 키가 충돌할 경우 Body가 우선시 된다.
+
 
 
 그 밖에 이미지 출력 형태를 POST로 재정의 가능하다.
