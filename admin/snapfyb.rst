@@ -35,8 +35,7 @@ Snapfy ``Beta``
 클라이언트
 ====================================
 
-클라이언트는 스냅파이가 게시한 API(엔드포인트)를 호출하는 것만으로
-이미지를 서비스 받는다.
+클라이언트는 스냅파이가 게시한 API(엔드포인트)를 호출한다.
 
 .. _header-n55:
 
@@ -58,12 +57,14 @@ Body와 QueryString을 혼합하여 사용한다.
 
 .. code:: http
 
+   # GET과 동일
    POST /snapfy?model=wine&view=catalog
 
    { }
 
 .. code:: http
 
+   # Model과 View 업로드
    POST /snapfy
 
    {
@@ -73,6 +74,7 @@ Body와 QueryString을 혼합하여 사용한다.
 
 .. code:: http
 
+   # View만 업로드   
    POST /snapfy?model=wine
 
    {
@@ -81,15 +83,17 @@ Body와 QueryString을 혼합하여 사용한다.
 
 .. code:: http
 
+   # Model만 업로드
    POST /snapfy?view=catalog
 
    {
    	"model" : { }
    }
 
-..
 
+.. code:: http
    QueryString과 Body의 키가 충돌할 경우 Body가 우선시 된다.
+
 
 그 밖에 이미지 출력 형태를 POST로 재정의 가능하다.
 
