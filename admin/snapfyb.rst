@@ -137,11 +137,12 @@ VIEW에 의해 참조될 뿐이다.
 `JINJA2 <https://jinja.palletsprojects.com/en/2.10.x/>`__ 형식을
 사용한다.
 
-.. code:: jinja2
+::
 
    {{firstname}}
    {{address.state}}
    {{phoneNumber.0.number}}
+
 
 .. _header-n76:
 
