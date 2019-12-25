@@ -26,7 +26,7 @@ Snapfy ``Beta``
 
 -  **Model** - JSON, HTML/DOM
 
--  **View** - HTML, CSS, Jinja2, Images
+-  **View** - HTML, CSS, JavaScript, Jinja2, Images
 
 -  **Control** - HTTP/S API
 
@@ -93,7 +93,7 @@ Body와 QueryString을 혼합하여 사용한다.
 
 
 .. note::
-   QueryString과 Body의 키가 충돌할 경우 Body가 우선시 된다.
+   QueryString과 Body의 키가 충돌할 경우 Body가 우선한다.
 
 
 
