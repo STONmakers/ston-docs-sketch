@@ -227,7 +227,7 @@ Snapfy엔진은 View의 태그를 참조하여 이미지를 생성한다. png포
            <Width>640</Width>
            <Height>480</Height>
            <Format>png</Format>
-           <Quality>85</Quality>
+           <Quality>100</Quality>
        </Output>
      </Snapfy>
 
@@ -265,7 +265,7 @@ Snapfy엔진은 View의 태그를 참조하여 이미지를 생성한다. png포
 
    -  ``<Format> (기본: png)`` 이미지 포맷 (``png`` 또는 ``jpeg``)
 
-   -  ``<Quality> (기본: 85, 단위: %)`` 포맷이 ``jpeg``\ 일 경우 이미지
+   -  ``<Quality> (기본: 100, 단위: %)`` 포맷이 ``jpeg``\ 일 경우 이미지
       품질 (1~100)
 
    -  스냅파이는 다음 우선순위로 이미지 형식을 결정한다.
