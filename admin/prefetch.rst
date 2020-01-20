@@ -8,14 +8,27 @@ API를 이용해 콘텐츠를 미리 캐싱한다.
 .. figure:: img/prefetch.png
    :align: center
 
-Prefetch는 관리자가 Manager port를 통해 Prefetch 파일 목록 업로드 하는 것으로 동작한다. 
-업로드 된 파일목록은 설정된 시간(즉시 또는 예약시점)에 순차적으로 다운로드 된다.
+Prefetch는 관리자가 Manager port를 통해 Job(Prefetch 파일목록)을 업로드 하는 것으로 동작한다. 
+업로드 된 Job은 설정시간에 순차적으로 다운로드 된다.
 
 
-API 상세
+
+API
 ====================================
 
-관리자는 다음 주소로 파일목록을 POST 메소드로 업로드 한다. ::
+Prefetch용 HTTP API를 지웒나다.
+
+-  Job 등록
+-  Job 조회 (with 상태필터)
+-  Job 삭제
+
+모든 API는 Job 단위로 동작한다.
+
+
+Job 등록
+------------------------------------
+
+관리자는 다음 주소로 Job을 POST 메소드로 업로드 한다. ::
 
    http://{STON-IP}:{ManagerPort}/prefetch
 
@@ -59,6 +72,121 @@ API 상세
 -  접수된 파일목록은 예정된 시간에 수행되지만 ``schedule`` 속성이 ``now`` 인 경우 (현재 작업 중인 prefetch가 없다면) 즉시 시작된다.
 -  (bar.com의 예와 같이) 만약 가상호스트에 별도의 커스터마이징 모듈이 연동되어 있다면 예제의 ``auth-code`` 나 ``keyword`` 처럼 커스텀 필드로 확장 가능하다.
 
+
+
+Job 목록조회
+------------------------------------
+
+Prefetch 진행 상태를 API로 조회 가능하다.(최대 1,000개) ::
+
+   http://{STON-IP}:{ManagerPort}/prefetch/list
+   http://{STON-IP}:{ManagerPort}/prefetch/list?status=...
+
+
+-  ``status`` Job 상태 필터링
+
+   -  ``wait`` 대기 중
+   -  ``downloading`` 다운로드 중
+   -  ``success`` 성공
+   -  ``fail`` 실패
+
+응답 예제는 다음과 같다. ::
+
+    {
+        "prefetch-list":[
+            {
+                "id":"1579492339-6c00ab48",
+                "type":"now",
+                "status":"success",
+                "total-url-count":4,
+                "success-url-count":4,
+                "registration-time":"2020-01-20T03:52:19Z",
+                "execution-time":"2020-01-20T03:52:20Z",
+                "completion-time":"2020-01-20T03:52:21Z"
+            }, {
+                "id":"1579492340-6c0b82b8",
+                "type":"now",
+                "status":"success",
+                "total-url-count":4,
+                "success-url-count":4,
+                "registration-time":"2020-01-20T03:52:20Z",
+                "execution-time":"2020-01-20T03:52:22Z",
+                "completion-time":"2020-01-20T03:52:22Z"
+            }, {
+                "id":"1579492341-6c0ba138",
+                "type":"now",
+                "status":"success",
+                "total-url-count":4,
+                "success-url-count":4,
+                "registration-time":"2020-01-20T03:52:21Z",
+                "execution-time":"2020-01-20T03:52:23Z",
+                "completion-time":"2020-01-20T03:52:23Z"
+            }, {
+                "id":"1579492341-6c0bae98",
+                "type":"now",
+                "status":"success",
+                "total-url-count":4,
+                "success-url-count":4,
+                "registration-time":"2020-01-20T03:52:21Z",
+                "execution-time":"2020-01-20T03:52:24Z",
+                "completion-time":"2020-01-20T03:52:25Z"
+            }, {
+                "id":"1579492342-6c0dca98",
+                "type":"now",
+                "status":"success",
+                "total-url-count":4,
+                "success-url-count":4,
+                "registration-time":"2020-01-20T03:52:22Z",
+                "execution-time":"2020-01-20T03:52:26Z",
+                "completion-time":"2020-01-20T03:52:26Z"
+            }, {
+                "id":"1579492404-6c0f13f8",
+                "type":"now",
+                "status":"fail",
+                "total-url-count":4,
+                "success-url-count":0,
+                "registration-time":"2020-01-20T03:53:24Z",
+                "reservation-time":"2020-01-20T03:53:55Z",
+                "execution-time":"2020-01-20T03:53:55Z",
+                "completion-time":"2020-01-20T03:53:55Z",
+                "last-failure-time":"2020-01-20T03:53:55Z",
+                "failure-url":"/hideface/test1234.jpg"
+            }
+        ]
+    }
+
+
+응답필드 목록은 다음과 같다.
+
+-  ``id`` - Job ID
+-  ``type`` - Job 스케쥴링 타입 ( ``now`` , ``reserved`` , ``schedule`` )
+-  ``status`` - wait, downloading, success, fail
+-  ``total-url-count`` - 전체 URL 개수
+-  ``success-url-count`` - 다운로드 성공 URL 개수
+-  ``registration-time`` - Job 등록 시간
+-  ``reservation-time`` - (예약 Job인 경우) 예약된 시간
+-  ``execution-time`` - Job 수행 시간
+-  ``completion-time`` - Job 완료 시간
+-  ``last-failure-time`` - 마지막 Job 실패 시간
+-  ``failure-url`` - 실패한 URL
+
+
+
+Job 상세조회
+------------------------------------
+특정 Job만을 조회하고 싶을 경우 등록된 ``id`` 를 통해 조회 가능하다. ::
+
+   http://{STON-IP}:{ManagerPort}/prefetch/item?id=1579492339-6c00ab48
+
+
+
+Job 취소
+------------------------------------
+아직 수행되지 않은 Job에 한하여 삭제가 가능하다. ::
+
+   http://{STON-IP}:{ManagerPort}/prefetch/item/remove?id=1579492339-6c00ab48
+
+   
 
 POST 지원
 ====================================
