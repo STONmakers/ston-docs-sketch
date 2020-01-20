@@ -170,6 +170,8 @@ Prefetch 진행 상태를 API로 조회 가능하다.(최대 1,000개) ::
 -  ``last-failure-time`` - 마지막 Job 실패 시간
 -  ``failure-url`` - 실패한 URL
 
+모든 시간표현은 ISO 8601규격으로 제공된다.
+
 
 
 Job 상세조회
@@ -282,6 +284,28 @@ POST 메소드 원본서버와 통신해야 할 경우 다음과 같이 ``method
 -  ``schedule`` 이 ``now`` 인 목록이 그렇지 않은 목록보다 항상 우선한다. ``now``목록끼리는 FIFO 로 수행된다.
 -  ``schedule`` 이 ``reserved`` 인 목록의 시간이 같을 경우 FIFO 로 수행된다.
 -  ``schedule`` 이 ``reserved`` 인 목록이 경쟁에서 밀려 수행시간이 지나면 다른 ``reserved`` 보다 우선 수행된다.
+
+
+
+재시도 정책
+------------------------------------
+
+일시적인 네트워크 장애 등으로 인해 다운로드에 문제가 발생할 수 있다. 
+재시도 정책을 통해 Prefetch 신뢰도를 향상시킬 수 있다. ::
+
+    # server.xml - <Server>
+
+    <Cache>
+        <Prefetch>
+            <MaxRetry>3</MaxRetry>
+            <RetryInterval>60</RetryInterval>
+        </Prefetch>
+    </Cache>
+
+
+-  ``<MaxRetry> (기본: 3회)`` 다운로드 실패시 재시도 횟수 (최소 1회)
+-  ``<RetryInterval> (기본: 60초)`` 재시도 간격 (최소 1초)
+
 
 
 
