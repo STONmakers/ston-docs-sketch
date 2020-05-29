@@ -1,6 +1,6 @@
-﻿.. _prefetch:
+﻿.. _pattern-traffic:
 
-Prefetch
+트래픽 최적화 패턴
 ******************
 
 API를 이용해 콘텐츠를 미리 캐싱한다.
