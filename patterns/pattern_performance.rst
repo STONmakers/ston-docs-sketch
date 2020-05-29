@@ -1,6 +1,6 @@
-﻿.. _prefetch:
+﻿.. _pattern-performance:
 
-Prefetch
+서비스 퍼포먼스 패턴
 ******************
 
 API를 이용해 콘텐츠를 미리 캐싱한다.

@@ -22,5 +22,4 @@ Spec
    patterns/pattern_traffic.rst
    patterns/pattern_infra.rst
    patterns/pattern_performance.rst
-   patterns/pattern_transparency.rst
 
