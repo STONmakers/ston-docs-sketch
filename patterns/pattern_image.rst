@@ -126,24 +126,55 @@ hijk
 
 해결하고 싶은 문제
 ------------------------------------
-이미지 원본이 
+지나치게 큰 이미지는 웹페이지 레이아웃을 파괴한다. 
+어떠한 이미지라도 가로 1200px을 넘지 않도록 제한하고 싶다.
 
 
-패턴 설명
+솔루션/패턴 설명
 ------------------------------------
+이미지서버가 이미지를 전송/배포하기 전 해상도를 검사한다.
+
+.. figure:: img/dgm002.png
+   :align: center
+
+설정된 크기보다 큰 해상도라면 이미지를 축소한다.
+
 
 구현
 ------------------------------------
+-  이미지 스토리지 앞에 이미지 변환서버 용도의 ``STON`` 을 배치한다.
+-  ``STON`` 이미지툴 `원본이미지 조건판단 <https://ston.readthedocs.io/ko/latest/admin/image.html#media-dims-byoriginal>`_ 을 설정한다. (최대 가로 1200px) ::
+   
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
 
-장점
+      <Dims Status="Active" Keyword="dims" port="8500">
+         <ByOriginal Name="limit-1200">
+            <Condition Width="1200">/optimize</Condition>
+            <Condition>/resize/1024x768/optimize</Condition>
+         </ByOriginal>
+      </Dims>
+
+
+-  ``STON`` 다음과 같이 URL을 노출한다. ::
+
+       http://image.example.com/koala.jpg/dims/byoriginal/limit-1200
+
+
+장점/효과
 ------------------------------------
+-  별도의 관리/배치 프로세스 없이 이미지 처리가 자동화된다.
+-  최대 해상도 정책이 변경되더라도 실시간으로 적용할 수 있다.
+
 
 주의점
 ------------------------------------
+``<img src="..." width="1200">`` 처럼 태그에 고정된 값을 설정하는 것보다 반응형으로 만들어야 한다.
 
 
 기타
 ------------------------------------
+이미지 URL을 변경하고 싶지 않다면 `URL 전처리 <https://ston.readthedocs.io/ko/latest/admin/adv_vhost.html#url>`_ 를 사용한다.
 
 
 
