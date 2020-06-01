@@ -192,7 +192,7 @@ hijk
 상품기술서는 독립된 HTML 조각(Snippet)으로 웹페이지에 삽입되는 경우가 일반적이다.
 `m2-function-image <https://m2-kr.readthedocs.io/ko/latest/guide/view.html#m2-function-image>`_ 는 이미지가 분할/병렬 로딩되도록 HTML을 수정한다.
 
-.. figure:: img/dgm001.png
+.. figure:: img/dgm003.png
    :align: center
 
 가시영역의 이미지부터 사용자에게 전달되어 빠른 로딩속도를 제공한다.
