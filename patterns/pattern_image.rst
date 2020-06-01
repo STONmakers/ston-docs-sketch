@@ -52,7 +52,7 @@ hijk
 
 
 
-이미지 용량절감 패턴
+이미지 용량절감
 ====================================
 
 해결하고 싶은 문제
@@ -121,7 +121,7 @@ hijk
 
 
 
-최대 이미지 해상도 패턴
+최대 이미지 해상도
 ====================================
 
 해결하고 싶은 문제
@@ -148,7 +148,7 @@ hijk
       # server.xml - <Server><VHostDefault><Options>
       # vhosts.xml - <Vhosts><Vhost><Options>
 
-      <Dims Status="Active" Keyword="dims" port="8500">
+      <Dims Status="Active" Keyword="dims">
          <ByOriginal Name="limit-1200">
             <Condition Width="1200">/optimize</Condition>
             <Condition>/resize/1024x768/optimize</Condition>
@@ -183,7 +183,94 @@ hijk
 
 해결하고 싶은 문제
 ------------------------------------
-해상도에 비해 지나치게 고용량의 이미지 파일이 서비스되는 경우, 전송비용이 상승할 뿐만 아니라 클라이언트 서비스 품질이 저하되는 문제가 발생한다.
+상품설명 이미지처럼 세로가 긴 이미지는 로딩 속도가 느리다.
+특히 모바일 환경처럼 가시(visible)영역이 작은 경우 다운로드가 완료되기 전까지 사용자는 빈 화면을 보게된다.
+
+
+솔루션/패턴 설명
+------------------------------------
+상품기술서는 독립된 HTML 조각(Snippet)으로 웹페이지에 삽입되는 경우가 일반적이다.
+`m2-function-image <https://m2-kr.readthedocs.io/ko/latest/guide/view.html#m2-function-image>`_ 는 이미지가 분할/병렬 로딩되도록 HTML을 수정한다.
+
+.. figure:: img/dgm001.png
+   :align: center
+
+가시영역의 이미지부터 사용자에게 전달되어 빠른 로딩속도를 제공한다.
+
+
+구현
+------------------------------------
+-  ``M2`` 를 HTML/이미지 스토리지 앞에 배치한다.
+-  ``M2`` 상품기술서를 처리할 엔드포인트를 생성한다. ::
+   
+      # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
+
+      <Model>
+         <Source>https://foo.com/#model</Source>
+      </Model>
+      <View>
+         <Source>https://bar.com/#view</Source>
+      </View>
+      <Control>
+         <Path>/productDetail</Path>
+      </Control>
+
+
+-  ``M2`` View파일에 ``m2-function-image`` 를 적용한다. (세로 500px을 기준으로 분할한다.) ::
+   
+      <html>
+         <head>
+            <meta name="m2-function-image" 
+                  host="https://www.example.com/m2/image"
+                  split-height="500">
+
+         ... (생략)...
+      </html>
+
+
+-  ``M2/STON`` 이미지처리용 가상호스트를 생성하고 이미지툴 기능을 활성화한다. ::
+   
+      # vhosts.xml - <Vhosts>
+
+      <Vhost Name="image.example.com">
+         <Options>
+            <Dims Status="Active" Keyword="dims" MaxSourceSize="0" />
+         </Options>
+      </Vhost>
+
+
+-  ``M2/STON`` 이미지처리 경로 ``/m2/image/`` 가 ``image.example.com`` 을 찾아갈 수 있도록 `URL 전처리 <https://ston.readthedocs.io/ko/latest/admin/adv_vhost.html#url>`_ 를 구성한다. ::
+   
+      # vhosts.xml
+
+      <Vhosts>
+         ... (생략) ...
+
+         <URLRewrite AccessLog="Replace">
+            <Pattern><![CDATA[^www.example.com/m2/([^/]+)/(.*)]]></Pattern>
+            <Replace><![CDATA[#1.example.com/#2]]></Replace>
+         </URLRewrite>
+      </Vhosts>
+
+
+-  상품기술서 URL을 ``M2`` URL로 변경한다. 
+
+
+장점/효과
+------------------------------------
+-  상품기술서 URL 변경만으로 간단히 도입이 가능하다.
+-  최신(Modern) 브라우저의 병렬로딩 메커니즘을 통해 이전보다 훨씬 빠른 체감속도 개선효과를 얻을 수 있다. 
+
+
+주의점
+------------------------------------
+상품기술서 서비스 도메인에 CDN을 도입하는 것이 좋다.
+너무 짧은 TTL(Time TO Live)를 설정할 경우 실시간 처리비용이 높아진다.
+
+
+기타
+------------------------------------
+처리량이 늘어나면 `2-Tier 구조 <https://ston.readthedocs.io/ko/latest/admin/enterprise.html>`_ 도입을 고려한다.
 
 
 
