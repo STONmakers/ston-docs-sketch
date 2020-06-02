@@ -41,8 +41,8 @@
 
 구현
 ------------------------------------
--  ``M2`` 를 HTML/이미지 스토리지 앞에 배치한다. (=HTTP 통신이 가능하다.)
--  ``M2`` 상품기술서를 처리할 엔드포인트를 생성한다. ::
+-  ``M2`` 리소스 스토리지 앞에 배치한다. (=HTTP 통신이 가능하다.)
+-  ``M2`` 혼합 콘텐츠를 필터링할 엔드포인트를 생성한다. ::
    
       # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
@@ -53,48 +53,37 @@
          <Source>https://bar.com/#view</Source>
       </View>
       <Control>
-         <Path>/productDetail</Path>
+         <Path>/item-detail</Path>
       </Control>
 
 
--  ``M2`` View파일에 ``m2-function-image`` 를 적용한다. (세로 500px을 기준으로 분할한다.) ::
+-  ``M2`` View파일에 nunjucks 필터를 적용한다. ::
    
-      <html>
-         <head>
-            <meta name="m2-function-image" 
-                  host="https://www.example.com/m2/image"
-                  split-height="500">
-
-         ... (생략)...
-      </html>
+      {{ model.__raw | toHttps('/item-detail/mixed') }}
 
 
--  ``M2/STON`` 이미지처리용 가상호스트를 생성하고 이미지툴 기능을 활성화한다. ::
+-  ``M2/STON`` 혼합 콘텐츠 게이트웨이용 가상호스트를 생성하고 이미지툴 기능을 활성화한다. ::
    
       # vhosts.xml - <Vhosts>
 
-      <Vhost Name="image.example.com">
-         <Options>
-            <Dims Status="Active" Keyword="dims" MaxSourceSize="0" />
-         </Options>
-      </Vhost>
+       <Vhost Name="mixed.example.com" Status="Active">
+          <Origin ByClient="ON" ByClientKeyword="byclient" Protocol="HTTP"/>
+       </Vhost>
+
+   외부주소를 동적으로 입력하도록 ``ByClient`` 기능을 확설화한다.
 
 
--  ``M2/STON`` 이미지처리 경로 ``/m2/image/`` 가 ``image.example.com`` 을 찾아갈 수 있도록 `URL 전처리 <https://ston.readthedocs.io/ko/latest/admin/adv_vhost.html#url>`_ 를 구성한다. ::
-   
-      # vhosts.xml
+-  ``M2/STON`` 혼합 콘텐츠가 리소스 ``mixed.example.com`` 을 찾을 수 있도록 URL 전처리를 규칙을 추가한다. ::
 
-      <Vhosts>
-         ... (생략) ...
-
-         <URLRewrite AccessLog="Replace">
-            <Pattern><![CDATA[^www.example.com/m2/([^/]+)/(.*)]]></Pattern>
-            <Replace><![CDATA[#1.example.com/#2]]></Replace>
-         </URLRewrite>
-      </Vhosts>
+      <URLRewrite AccessLog="Replace">
+         <Pattern><![CDATA[www.example.com/item-detail/mixed/(.*)]]></Pattern>
+         <Replace><![CDATA[mixed.example/byclient/#1]]></Replace>
+      </URLRewrite>
 
 
--  상품기술서 URL을 ``M2`` URL로 변경한다. 
+-  혼합 콘텐츠가 포함된 URL을 ``M2`` URL로 변경한다. ::
+
+      /item-detail?model=ITEM001&view=...
 
 
 장점/효과
