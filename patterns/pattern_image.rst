@@ -248,11 +248,9 @@
 .. figure:: img/dgm004.png
    :align: center
 
-정보와 이미지를 결합하는 방식은 자유롭게 생산/수정이 가능하다.
+정보와 이미지의 결합형태는 언제든지 변경가능하다.
 
 
-구현
-------------------------------------
 구현
 ------------------------------------
 -  ``M2`` 를 API서버와 이미지 스토리지 앞에 배치한다. (=HTTP 통신이 가능하다.)
@@ -271,7 +269,7 @@
       </Control>
 
 
--  ``M2`` `View 파일 <https://m2-kr.readthedocs.io/ko/latest/guide/view.html#jpg-png-webp-bmp-pdf>`_ 을 작성하여 게시한다. 출력물은 JPG로 한다. ::
+-  ``M2`` `View 파일 <https://m2-kr.readthedocs.io/ko/latest/guide/view.html#jpg-png-webp-bmp-pdf>`_ 을 작성하여 게시한다. 출력물은 ``JPG`` 로 한다. ::
    
       <html>
          <head>
@@ -295,7 +293,7 @@
 
 주의점
 ------------------------------------
--  API 서버의 장애 또는 ``404 Not Found`` `라면 이미지는 제공되지 않는다.
+-  API 서버의 장애 또는 ``404 Not Found`` 라면 이미지를 생성할 수 없다.
 -  이메일 클라이언트를 이용한다면 `제약사항 <https://mailchimp.com/help/limitations-of-html-email/>`_ 를 참고하기 바란다.
 
 
