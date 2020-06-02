@@ -63,7 +63,7 @@
       {{ model.__raw | toHttps('/item-detail/mixed') }}
 
 
--  ``M2/STON`` 혼합 콘텐츠 게이트웨이용 가상호스트를 생성하고 ``ByClient`` 기능을 확설화한다. ::
+-  ``M2/STON`` 혼합 콘텐츠 게이트웨이용 가상호스트를 생성하고 ``ByClient`` 기능을 활성화한다. ::
    
       # vhosts.xml - <Vhosts>
 
