@@ -17,6 +17,7 @@ Spec
    admin/https_multi_cert
    admin/video_viewer
    patterns/pattern_image.rst
+   patterns/pattern_webpage.rst
    patterns/pattern_video.rst
    patterns/pattern_traffic.rst
    patterns/pattern_infra.rst
