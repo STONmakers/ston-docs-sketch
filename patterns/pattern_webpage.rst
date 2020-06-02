@@ -37,7 +37,7 @@
    :align: center
 
 외부 리소스는 ``M2`` 를 통해 단일 ``HTTPS`` 도메인으로 제공된다. 
-3rd Party에 의해 혼합 콘텐츠가 포함된 ``<iframe>`` 이 제공된느 경우도 일관되게 필터링된다.
+3rd Party에 의해 혼합 콘텐츠가 포함된 ``<iframe>`` 이 제공되더라도 일관되게 필터링된다.
 
 
 구현
@@ -67,7 +67,7 @@
    
       # vhosts.xml - <Vhosts>
 
-       <Vhost Name="mixed.example.com" Status="Active">
+       <Vhost Name="mixed.example.com">
           <Origin ByClient="ON" ByClientKeyword="byclient" Protocol="HTTP"/>
        </Vhost>
 
@@ -95,7 +95,7 @@
 
 주의점
 ------------------------------------
-현재(2020.06) 이미지는 차단되지 않는다.
+현재(2020.06) 이미지등 단순 참조 리소스는 차단되지 않기 때문에 해당 콘텐츠는 배제하는 것이 효율적이다.
 추후 보안검사 수준이 상향되는 경우 이미지에 대해서도 이 패턴의 사용이 가능하다. 
 이 경우 발생하게되는 데이터 트래픽 처리비용에 대해 고려해야 한다.
 
