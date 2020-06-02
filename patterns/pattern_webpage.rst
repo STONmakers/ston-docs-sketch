@@ -17,7 +17,7 @@
 
 해결하고 싶은 문제
 ------------------------------------
-``HTTPS`` 웹페이지에서 (외부에서 제공되는)``HTTP`` 리소스를 참조할 경우 해당 콘텐츠가 차단된다.
+``HTTPS`` 웹페이지에서 (외부에서 제공되는) ``HTTP`` 리소스를 참조할 경우 콘텐츠가 차단된다.
 
 .. figure:: img/rsc001.png
    :align: center
@@ -36,13 +36,14 @@
 .. figure:: img/dgm005.png
    :align: center
 
-외부 리소스는 ``M2`` 를 통해 단일 ``HTTPS`` 도메인으로 제공될 뿐만 아니라 ``<iframe>`` 등으로 ``http`` 를 참조하는 경우 일관되게 처리된다.
+외부 리소스는 ``M2`` 를 통해 단일 ``HTTPS`` 도메인으로 제공된다. 
+3rd Party에 의해 혼합 콘텐츠가 포함된 ``<iframe>`` 이 제공된느 경우도 일관되게 필터링된다.
 
 
 구현
 ------------------------------------
 -  ``M2`` 리소스 스토리지 앞에 배치한다. (=HTTP 통신이 가능하다.)
--  ``M2`` 혼합 콘텐츠를 필터링할 엔드포인트를 생성한다. ::
+-  ``M2`` 혼합 콘텐츠를 필터링할 엔드포인트를 ``www.example.com`` 에 생성한다. ::
    
       # vhosts.xml - <Vhosts><Vhost><M2><Endpoints><Endpoint>
 
@@ -62,7 +63,7 @@
       {{ model.__raw | toHttps('/item-detail/mixed') }}
 
 
--  ``M2/STON`` 혼합 콘텐츠 게이트웨이용 가상호스트를 생성하고 이미지툴 기능을 활성화한다. ::
+-  ``M2/STON`` 혼합 콘텐츠 게이트웨이용 가상호스트를 생성하고 ``ByClient`` 기능을 확설화한다. ::
    
       # vhosts.xml - <Vhosts>
 
@@ -70,10 +71,9 @@
           <Origin ByClient="ON" ByClientKeyword="byclient" Protocol="HTTP"/>
        </Vhost>
 
-   외부주소를 동적으로 입력하도록 ``ByClient`` 기능을 확설화한다.
 
-
--  ``M2/STON`` 혼합 콘텐츠가 리소스 ``mixed.example.com`` 을 찾을 수 있도록 URL 전처리를 규칙을 추가한다. ::
+-  ``M2/STON`` 혼합 콘텐츠 리소스는 ``www.example.com/item-detail/mixed/..`` 로 제공된다.
+   해당 URL이 ``mixed.example.com`` 에서 처리될 수 있도록 URL 전처리를 규칙을 추가한다. ::
 
       <URLRewrite AccessLog="Replace">
          <Pattern><![CDATA[www.example.com/item-detail/mixed/(.*)]]></Pattern>
@@ -83,12 +83,13 @@
 
 -  혼합 콘텐츠가 포함된 URL을 ``M2`` URL로 변경한다. ::
 
-      /item-detail?model=ITEM001&view=...
+      https://www.exmaple.com/item-detail?model=ITEM001&view=...
 
 
 장점/효과
 ------------------------------------
--  통제할 수 없는 외부 리소스를 포함한 사이트 전체를 ``HTTPS`` 로 제공한다.
+-  마이그레이션 없이 즉시 웹 사이트에 ``HTTPS`` 를 적용한다.
+-  통제할 수 없는 외부 리소스에도 일관되게 ``HTTPS`` 를 적용한다.
 -  추후 보안수준이 강화되더라도 ``M2`` 를 통해 정책개선이 가능하다.
 
 
